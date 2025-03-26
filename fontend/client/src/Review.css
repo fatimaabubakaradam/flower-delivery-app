@@ -1,0 +1,111 @@
+.footer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 90%;
+    margin: auto;
+    padding: 40px 0;
+}
+
+.reminder-box {
+    border-top: 1px solid black;
+    padding: 20px;
+    text-align: center;
+}
+
+.reminder-box p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.reminder-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.reminder-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Contact Section */
+.contact-box {
+    border-top: 1px solid black;
+    padding: 20px;
+}
+
+.contact-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact-label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 15px;
+    color: gray;
+}
+
+.contact-box p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.social-icons {
+
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+/* Bottom Section */
+.bottom-section {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 90%;
+    margin: auto;
+    padding-top: 30px;
+}
+.section{
+    border-top: 1px solid black;
+
+}
+.section h3, .about-us h3 {
+    font-size: 18px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.section ul, .about-us ul {
+    list-style: none;
+    padding: 0;
+}
+
+.section li, .about-us li {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-section {
+        grid-template-columns: 1fr;
+    }
+}
