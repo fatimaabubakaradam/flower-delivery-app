@@ -5,7 +5,10 @@ import human from "./assets/human.png";
 import wedding from "./assets/wedding.png"
 import { FaPhone } from "react-icons/fa";
 import google from "./assets/google logo.png";
+import { Link } from "react-router-dom";
 import {  FaMapMarkerAlt } from "react-icons/fa";
+import Category from "./Category";
+
 
 
 import Review from "./review";
@@ -47,7 +50,8 @@ const Home = () => {  // Define the functional component
 
   return (
     <div className="home-container">
-      {/* Hero Section */}
+      <div className="container-of-desk">
+              {/* Hero Section */}
       <section className="hero">
         <h1>Kyiv <br /><strong>LuxeBouquets®</strong></h1>
         <p>
@@ -67,12 +71,12 @@ const Home = () => {  // Define the functional component
       <section className="categories">
   {/* First row: Fresh Flowers (Text) + Dried Flowers (Image) */}
   <div className="category">
-    <p>Fresh Flowers</p>
-    <a href="/shop">Shop now →</a>
-  </div>
-  <div className="category">
-    <img src={images.freshFlowers} alt="Fresh Flowers" />
-  </div>
+  <p>Fresh Flowers</p>
+  <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+</div>
+<div className="category">
+  <img src={images.freshFlowers} alt="Fresh Flowers" />
+</div>
 
   {/* Second row: Live Plants (Image) + Aroma Candles (Text) */}
   <div className="category">
@@ -80,33 +84,43 @@ const Home = () => {  // Define the functional component
   </div>
   <div className="category">
     <p>Dried Flowers</p>
-    <a href="/shop">← Shop now</a>
-  </div>
+    <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+    </div>
 
-  {/* Third row: Live Plants (Text) + Aroma Candles (Image) */}
-  <div className="category">
-    <p>Live Plants</p>
-    <a href="/shop">Shop now →</a>
-  </div>
-  <div className="category">
-    <img src={images.livePlants} alt="Live Plants" />
-  </div>
-
-  {/* Fourth row: Aroma Candles (Image) + Fresheners (Text) */}
-  <div className="category">
-    <img src={images.aromaCandles} alt="Aroma Candles" />
-  </div>
-  <div className="category">
-    <p>Aroma Candles</p>
-    <a href="/shop">← Shop now</a>
-  </div>
 </section>
-<section className="about">
-      <div className="about-header">
-        <h2>About us</h2>
       </div>
+      <div className="container-of-desk-2">
+        <section className="empty-card"></section>
+      <section className="categories">
+         
+         {/* Third row: Live Plants (Text) + Aroma Candles (Image) */}
+         <div className="category">
+           <p>Live Plants</p>
+           <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
 
-      <div className="about-content">
+         </div>
+         <div className="category">
+           <img src={images.livePlants} alt="Live Plants" />
+         </div>
+       
+         {/* Fourth row: Aroma Candles (Image) + Fresheners (Text) */}
+         <div className="category">
+           <img src={images.aromaCandles} alt="Aroma Candles" />
+         </div>
+         <div className="category">
+           <p>Aroma Candles</p>
+           <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+
+         </div>
+            </section>
+      </div>
+     
+<div className="about">
+      <section className="about-header">
+        <h1>About us</h1>
+      </section>
+
+      <section className="about-content">
         <p className="story-title">OUR STORY</p>
         <h3>Kyiv LuxeBouquets</h3>
         <p>
@@ -118,16 +132,16 @@ const Home = () => {  // Define the functional component
         <div className="learn-more">
         <button>LEARN MORE</button>
       </div>
-      </div>
-    </section>
-    <section className="why-choose-us">
+      </section>
+    </div>
+    <div className="why-choose-us">
       
 
-      <div className="title">
+      <section className="title">
         <h2>Why choose us ?</h2>
-      </div>
-
-      <div className="content">
+      </section>
+      <section className="service-info">
+    <div className="content">
         <h3>Stylish bouquets by florists</h3>
         <p>
           At our floral studio, our professional florists craft the most elegant and stylish bouquets 
@@ -136,8 +150,6 @@ const Home = () => {  // Define the functional component
           brighten up your day with our stunning bouquets and same-day delivery service.
         </p>
       </div>
-    </section>
-    <section className="service-info">
       <div className="service">
         <h3>On-time delivery</h3>
         <p>
@@ -169,7 +181,10 @@ const Home = () => {  // Define the functional component
         </p>
       </div>
     </section>
-    <section className="image-section">
+     
+    </div>
+   <div className="img-contact-card">
+   <section className="image-section">
   <img src={Image} alt="Beautiful flower" className="custom-img" />
 </section>
 <section className="contact-section">
@@ -205,15 +220,20 @@ const Home = () => {  // Define the functional component
   </div>
 </section>
 
+   </div>
+    
     <section className="section-container">
-    <h2 className="service-title">Our Service</h2>
+    <h1 className="service-title">Our Service</h1>
 
-      <div className="image-section">
+    </section>
+    <div className="container-desk-under">
+       
+      <section className="image-section">
       <img src={human} alt="Woman with flowers" className="custom-img" />
 
-      </div>
+      </section>
       
-      <div className="subscription-card">
+      <section className="subscription-card">
       <p className="service-text">SERVICE</p>
       <h2 className="title">Flower Subscriptions</h2>
       <p className="description">
@@ -222,10 +242,10 @@ const Home = () => {  // Define the functional component
         one-time purchases.
       </p>
       <button className="subscribe-btn">SUBSCRIBE NOW</button>
-    </div>
     </section>
-    <section className="image-section">
-  <img src={wedding} alt="Beautiful flower" className="custom-img" />
+    </div>
+    <section className="image-section-1">
+  <img src={wedding} alt="Beautiful flower" className="custom-img-1" />
 </section>
 <div className="reviews-card">
       <img src={google} alt="Google Logo" className="google-logo" />

@@ -101,6 +101,27 @@ justify-content: center;
     font-size: 24px;
     cursor: pointer;
   }
+  .desktop-menu {
+    display: none;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 600px; /* Adjust based on your design */
+    border: 2px solid black;
+  }
+  
+  .desktop-menu li {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-right: 1px solid black;
+  }
+  
+  .desktop-menu li:last-child {
+    border-right: none;
+  }
   
   /* Cart Drawer */
   .cart-container {
@@ -334,8 +355,8 @@ justify-content: center;
     text-align: center;
   }
   
-  .about-header h2 {
-    font-size: 28px;
+  .about-header h1 {
+    font-size: 35px;
     font-weight: bold;
     margin: 0;
   }
@@ -363,13 +384,12 @@ justify-content: center;
 
   .why-choose-us {
     width: 100%;
-    max-width: 600px; /* Adjust width as needed */
     margin: auto;
     text-align: center;
 }
 
 .learn-more button {
-    width: 90%;
+    width: 50%;
     padding: 12px;
     border: 2px solid black;
     background: transparent;
@@ -433,7 +453,16 @@ justify-content: center;
     margin: 0 auto;
     text-align: center;
   }
-    
+  .custom-img-1 {
+    width: 100%; /* Makes image responsive */
+    height: auto; /* Keeps aspect ratio */
+    display: block; /* Removes extra spacing */
+    margin: 0 auto; /* Centers the image */
+  }
+  .image-section-1 {
+    margin: 0 auto;
+    text-align: center;
+  } 
   .contact-section {
     margin-top: 20px;
     width: 90%;
@@ -561,7 +590,7 @@ justify-content: center;
   
   .google-logo {
 
-    width: 50%;
+    width: 30%;
     margin-bottom: 5px;
   }
   
@@ -613,7 +642,9 @@ justify-content: center;
     cursor: pointer;
     transition: 0.3s ease-in-out;
   }
-  
+    .desktop-menu-container{
+        display: none;
+      }
   .read-btn:hover {
     background: black;
     color: white;
@@ -630,6 +661,9 @@ justify-content: center;
         max-width: 800px;
         margin: 0 auto;
         text-align: left;
+      }
+      .desktop-menu-container{
+        display: none;
       }
       
       /* Contact Form */
@@ -707,4 +741,127 @@ justify-content: center;
       .icon {
         font-size: 16px;
       }
+  }
+  @media (min-width: 1024px){
+    
+    .menu-icon, .cart-icon {
+     display: none;
+    }
+    .desktop-menu-container {
+      display: flex;
+      width: 100%;
+      border: 1px solid black; /* Outer border */
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+    
+    .menu-item {
+      flex: 1; /* Equal width for all items */
+      text-align: center;
+      padding: 20px;
+      border: 1px solid black; /* Adds vertical dividers */
+      font-size: 18px;
+    }
+    
+    /* Extra space between Contact and Sign in */
+    .menu-item:nth-child(3) {
+      flex: 3; /* Contact takes more space */
+    }
+    
+    .menu-item:last-child {
+      border-right: none; /* Removes the last border */
+    }
+    
+    .container-of-desk{
+      margin-top: -20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      grid-template-rows: repeat(2, auto);
+       
+    }
+   
+    .categories{
+      border: 1px solid black; /* Adds vertical dividers */
+ 
+    }
+    .container-of-desk-2{
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      grid-template-rows: repeat(2, auto);
+    }
+    .empty-card{
+      border: 1px solid black; /* Adds vertical dividers */
+      /* border-top: 1px solid black;  */
+
+    }
+    .about{
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+    }
+    .about-header{
+      border-right: 1px solid black; /* Adds vertical dividers */
+
+    }
+    .why-choose-us{
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+    }
+    .title{
+      border-right: 1px solid black; /* Adds vertical dividers */
+      border-top: 1px solid black; /* Adds vertical dividers */
+
+    }
+    .img-contact-card{
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      border-top: 1px solid black; /* Adds vertical dividers */
+
+    }
+    .image-section{
+      border-top: 1px solid black; /* Adds vertical dividers */
+
+    }
+    .service-title{
+      text-align: center;
+      font-size: 32px;
+    }
+    .container-desk-under{
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      border: 1px solid black; /* Adds vertical dividers */
+
+    }
+    .custom-img{
+      border: 1px solid black; /* Adds vertical dividers */
+      max-width: 100%;
+      width: 700px;
+
+    }
+    .service-title {
+      padding-top: 10px; /* Space between the line and text */
+      padding-bottom:20px ;
+      font-size: 24px; /* Adjust text size */
+      font-weight: bold;
+    }
+    .subscription-card {
+      padding: 30px;
+      text-align: center;
+      /* max-width: 400px; */
+      margin: auto; /* Center it */
+    }
+    
+    .google-logo {
+      
+        width: 30% !important;
+      
+            height: auto;
+    }
+    .contact-section{
+  text-align: center;
+    }
+    .menu-item {
+      text-decoration: none;
+      color: black; /* or any color you want */
+    }
+    
   }

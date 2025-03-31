@@ -7,18 +7,18 @@ const Review = () => {
     <div className="footer-container">
       
       {/* Reminder Box */}
-      <div className="reminder-box">
+      <section className="reminder-box">
         <p>
           Remember to offer beautiful flowers from Kyiv LuxeBouquets 
           Valentines Day, Mothers Day, Christmas... <br />
           Reminds you 7 days before. No spam or sharing your address.
         </p>
         <input type="email" placeholder="Your Email" />
-        <button>REMIND</button>
-      </div>
+        <button className="remind-button">REMIND</button>
+      </section>
 
       {/* Contact Box */}
-      <div className="contact-box">
+      <section className="contact-box">
         <h3>Contact Us</h3>
         <p className="contact-label">Address</p>
         <p>15/4 Khreshchatyk Street, Kyiv</p>
@@ -37,10 +37,10 @@ const Review = () => {
           <FaTwitter />
           <FaPaperPlane />
         </div>
-      </div>
+      </section>
 
       {/* Bottom Section with Shop, Service, and About Us */}
-      <div className="bottom-section">
+      <section className="bottom-section">
         <div className="section">
           <h3>Shop</h3>
           <ul>
@@ -62,7 +62,9 @@ const Review = () => {
           </ul>
         </div>
 
-        <div className="about-us">
+       
+      </section>
+      <section className="about-us">
           <h3>About Us</h3>
           <ul>
             <li>Our story</li>
@@ -73,9 +75,7 @@ const Review = () => {
             <li>Terms & conditions</li>
             <li>Privacy policy</li>
           </ul>
-        </div>
-      </div>
-
+        </section>
     </div>
   );
 };

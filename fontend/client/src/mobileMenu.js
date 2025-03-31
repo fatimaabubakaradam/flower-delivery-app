@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaShoppingBag, FaInstagram, FaPinterest, FaFacebook, FaTwitter, FaTelegram } from "react-icons/fa";
-import "./App.css"; // Ensure you create this CSS file
+import { Link } from "react-router-dom";
+import {
+  FaBars,
+  FaTimes,
+  FaShoppingBag,
+  FaInstagram,
+  FaPinterest,
+  FaFacebook,
+  FaTwitter,
+  FaTelegram,
+} from "react-icons/fa";
 
-const MobileMenu = () => {
+import "./App.css";
+import "./signin.css";
+
+const MobileMenu = ({ onCartClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -12,7 +24,7 @@ const MobileMenu = () => {
         <button className="menu-icon" onClick={() => setIsOpen(true)}>
           <FaBars />
         </button>
-        <button className="cart-icon">
+        <button className="cart-icon" onClick={onCartClick}>
           <FaShoppingBag />
         </button>
       </header>
@@ -23,11 +35,23 @@ const MobileMenu = () => {
           <FaTimes />
         </button>
         <ul>
-          <li><a href="#">Sign in</a></li>
-          <li><a href="#">Shop</a></li>
-          <li><a href="#">Service</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">About us</a></li>
+          <li>
+            <Link to="/signin" onClick={() => setIsOpen(false)}>
+              Sign in
+            </Link>
+          </li>
+          <li>
+            <a href="#">Shop</a>
+          </li>
+          <li>
+            <a href="#">Service</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+          <li>
+            <a href="#">About us</a>
+          </li>
         </ul>
         <div className="policy">
           <a href="#">Shipping & returns</a>
@@ -35,11 +59,21 @@ const MobileMenu = () => {
           <a href="#">Privacy policy</a>
         </div>
         <div className="social-icons">
-          <a href="#"><FaInstagram /></a>
-          <a href="#"><FaPinterest /></a>
-          <a href="#"><FaFacebook /></a>
-          <a href="#"><FaTwitter /></a>
-          <a href="#"><FaTelegram /></a>
+          <a href="#">
+            <FaInstagram />
+          </a>
+          <a href="#">
+            <FaPinterest />
+          </a>
+          <a href="#">
+            <FaFacebook />
+          </a>
+          <a href="#">
+            <FaTwitter />
+          </a>
+          <a href="#">
+            <FaTelegram />
+          </a>
         </div>
       </nav>
     </>

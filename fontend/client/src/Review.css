@@ -1,111 +1,149 @@
 .footer-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    width: 90%;
-    margin: auto;
-    padding: 40px 0;
-}
-
-.reminder-box {
-    border-top: 1px solid black;
-    padding: 20px;
-    text-align: center;
-}
-
-.reminder-box p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.reminder-box input {
     width: 100%;
+    padding: 20px;
+    text-align: center; /* Center text content */
+  }
+  .reminder-box {
+    border-top: 1px solid black; /* Adds vertical dividers */
+     padding: 20px; 
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .reminder-box input {
+    width: 80%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-}
-
-.reminder-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: black;
+margin-top: 10px;
+  }
+  
+  .remind-button {
+    margin-top: 30px;
+    background: black;
     color: white;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-}
+    margin-bottom: 30px;
+  }
+  .contact-box {
+    border-top: 1px solid black; /* Adds vertical dividers */
 
-/* Contact Section */
-.contact-box {
-    border-top: 1px solid black;
     padding: 20px;
-}
-
-.contact-box h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.contact-label {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .contact-label {
     font-weight: bold;
-    font-size: 14px;
-    margin-top: 15px;
-    color: gray;
-}
-
-.contact-box p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.social-icons {
-
+  }
+  
+  .social-icons {
     display: flex;
+    justify-content: center;
     gap: 15px;
+  }
+  
+  .social-icons svg {
     font-size: 20px;
-    margin-top: 10px;
-    padding-top: 10px;
-}
+    cursor: pointer;
+  }
+  .bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    padding: 20px;
+    border-top: 1px solid black; /* Adds vertical dividers */
 
-/* Bottom Section */
-.bottom-section {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    width: 90%;
-    margin: auto;
-    padding-top: 30px;
-}
-.section{
-    border-top: 1px solid black;
-
-}
-.section h3, .about-us h3 {
-    font-size: 18px;
-    color: gray;
+    margin-bottom: 20px;
+  }
+  
+  .section h3 {
     margin-bottom: 10px;
-}
-
-.section ul, .about-us ul {
+  }
+  
+  .section ul {
     list-style: none;
     padding: 0;
-}
+  }
+  
+  .section ul li {
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  .about-us {
+    padding: 20px;
+    border-top: 1px solid black; /* Adds vertical dividers */
 
-.section li, .about-us li {
-    font-size: 14px;
-    margin: 5px 0;
-}
+    text-align: left;
+  }
+  
+  .about-us ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .about-us ul li {
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  @media (min-width: 768px){
+.footer-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: 1fr 1fr;
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .footer-container {
-        grid-template-columns: 1fr;
+
+}
+ .section{
+    margin-left: 40px;
+    margin-bottom: 20px;
+
+
+}
+.reminder-box{
+    border: 1px solid black; /* Adds vertical dividers */
+}
+.about-us {
+  border: 1px solid black; /* Adds vertical dividers */
+  margin-top: -20px;
+
+}
+.bottom-section {
+   margin-top: -20px;
+  border: 1px solid black; /* Adds vertical dividers */
     }
-
-    .bottom-section {
-        grid-template-columns: 1fr;
+    .contact-box {
+      border: 1px solid black; /* Adds vertical dividers */
+  
+      padding: 20px;
     }
-}
+    
+  
+
+
+
+ }   
+@media (min-width: 1024px) {
+  .footer-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Two equal columns */
+    /* grid-template-rows: repeat(2, auto); */
+  }
+  .contact-box {
+    border: 1px solid black; /* Adds vertical dividers */
+
+    padding: 10px;
+  }
+  .bottom-section {
+    margin-top: 0px;
+     }
+     .about-us {
+      margin-top: 0px;
+    
+    }
+}   
+  

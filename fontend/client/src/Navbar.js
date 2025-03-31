@@ -1,15 +1,18 @@
-import React from "react";
-import MobileMenu from "./mobileMenu"; // Ensure correct file name and path
-import Cart from "./cart"; // Import Cart component
+import React, { useState } from "react";
+import MobileMenu from "./mobileMenu";
+import DesktopMenu from "./desktopMenu";
+import Cart from "./cart";
 
-function App() {
+function Navbar() {
+  const [cartOpen, setCartOpen] = useState(false);
+
   return (
     <div>
-      <MobileMenu />
-      <Cart /> {/* Add Cart component here */}
+      <MobileMenu onCartClick={() => setCartOpen(true)} />
+      <DesktopMenu onCartClick={() => setCartOpen(true)} />
+      {cartOpen && <Cart onClose={() => setCartOpen(false)} />}
     </div>
   );
 }
 
-export default App;
-
+export default Navbar;
