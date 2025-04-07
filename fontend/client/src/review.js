@@ -54,7 +54,7 @@ const Review = () => {
           </ul>
         </div>
 
-        <div className="section">
+        <div className="section-1">
           <h3>Service</h3>
           <ul>
             <li>Flower Subscription</li>

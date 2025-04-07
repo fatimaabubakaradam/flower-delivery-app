@@ -50,27 +50,27 @@
 @media (min-width: 1024px) {
   .cat-con-flower {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    grid-template-rows: auto; /* Adjust row height dynamically */
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto; 
   }
 
   .category-container {
-    grid-column: 1 / 2; /* First column */
-    grid-row: 1; /* First row */
+    grid-column: 1 / 2; 
+    grid-row: 1; 
     width: 100%;
-    height: auto; /* or a fixed height */
+    height: auto; 
   }
 
   .blank-card {
-    grid-column: 1 / 2; /* Still in the first column */
-    grid-row: 2; /* Second row */
+    grid-column: 1 / 2; 
+    grid-row: 2; 
   }
 
   .flowers-list {
-    grid-column: 2 / 3; /* Second column */
-    grid-row: 1 / span 2; /* Spans both rows */
+    grid-column: 2 / 3; 
+    grid-row: 1 / span 2; 
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Flowers in two columns */
+    grid-template-columns: repeat(2, 1fr); 
     
   }
   .category-image{

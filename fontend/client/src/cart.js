@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { FaShoppingBag, FaTimes } from "react-icons/fa";
-import Checkout from "./Checkout"; 
+import { FaTimes } from "react-icons/fa";
+import Checkout from "./Checkout";
 import "./App.css";
 
-const Cart = ({ onClose }) => { // ✅ Receive `onClose` function
+const Cart = ({ onClose }) => {
   const [flower, setFlower] = useState(null);
   const [checkout, setCheckout] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+
     fetch("http://localhost:3000/api/flowers/67e30aff5eff241e26fdb397")
       .then((res) => res.json())
       .then((data) => {
@@ -19,22 +24,49 @@ const Cart = ({ onClose }) => { // ✅ Receive `onClose` function
       .catch((err) => console.error("Error fetching flower:", err));
   }, []);
 
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      alert("You must be signed in to add items to the cart.");
+      return;
+    }
+
+    setCartItems((prevItems) => [...prevItems, flower]);
+    alert("Item added to cart!");
+  };
+
+  const handleCheckout = () => {
+    if (!isAuthenticated) {
+      alert("You must be signed in to proceed to checkout.");
+      return;
+    }
+    setCheckout(true);
+  };
+
+  // Calculate subtotal and total
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
     <div className="cart-container show">
       <div className="cart-header">
         <h2>Shopping Cart</h2>
-        <button className="close-btn" onClick={onClose}> {/* ✅ Close Cart when clicked */}
+        <button className="close-btn" onClick={onClose}>
           <FaTimes />
         </button>
       </div>
 
       {checkout ? (
-        <Checkout /> 
+        <Checkout cartItems={cartItems} total={calculateTotal()} />
       ) : (
         flower && (
           <div className="cart-content">
             <div className="cart-item">
-              <img src={flower.imageUrl} alt={flower.name} className="flower-image" />
+              <img
+                src={flower.imageUrl}
+                alt={flower.name}
+                className="flower-image"
+              />
               <div className="cart-item-details">
                 <h3 className="flower-name">{flower.name}</h3>
                 <p className="quantity">Quantity (1)</p>
@@ -45,19 +77,28 @@ const Cart = ({ onClose }) => { // ✅ Receive `onClose` function
             <div className="cart-summary">
               <div className="subtotal">
                 <p>Subtotal</p>
-                <span>${flower.price}</span>
+                <span>${calculateTotal()}</span>
               </div>
-              <input type="text" placeholder="Gift Message" className="gift-message" />
-              <p className="shipping-info">
-                Shipping & taxes calculated at checkout
-                <br />
-                Free standard shipping within Kyiv
-              </p>
+              <input
+                type="text"
+                placeholder="Gift Message"
+                className="gift-message"
+              />
+              <p className="shipping-info">Shipping & taxes calculated at checkout</p>
             </div>
 
-            <button 
-              className="checkout-btn" 
-              onClick={() => setCheckout(true)}
+            <button
+              className="add-to-cart-btn"
+              onClick={handleAddToCart}
+              disabled={!isAuthenticated}
+            >
+              Add to Cart
+            </button>
+
+            <button
+              className="checkout-btn"
+              onClick={handleCheckout}
+              disabled={!isAuthenticated}
             >
               CHECK OUT
             </button>

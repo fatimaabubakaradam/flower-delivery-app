@@ -6,10 +6,29 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/users/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token); // Store JWT in localStorage
+        alert("Sign in successful!");
+        window.location.href = "/"; // Redirect to home page
+      } else {
+        alert("Login failed: " + data.message);
+      }
+    } catch (error) {
+      console.error("Sign-in error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (

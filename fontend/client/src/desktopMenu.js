@@ -5,8 +5,10 @@ import "./App.css";
 const DesktopMenu = ({ onCartClick }) => {
   return (
     <div className="desktop-menu-container">
-      <div className="menu-item">Shop</div>
-      <div className="menu-item">Contact</div>
+<Link to="/product" className="menu-item">Shop</Link>
+
+<Link to="/contact" className="menu-item">Contact</Link>
+
       <div className="menu-item"></div>
       <Link to="/signin" className="menu-item">Sign in</Link>
       <div

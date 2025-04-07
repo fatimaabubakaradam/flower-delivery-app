@@ -4,17 +4,18 @@ import Image from "./assets/flower.png";
 import human from "./assets/human.png";
 import wedding from "./assets/wedding.png"
 import { FaPhone } from "react-icons/fa";
+import {  useNavigate } from "react-router-dom"; // Import useNavigate
+
 import google from "./assets/google logo.png";
 import { Link } from "react-router-dom";
 import {  FaMapMarkerAlt } from "react-icons/fa";
-import Category from "./Category";
 
 
 
 import Review from "./review";
 
 
-const Home = () => {  // Define the functional component
+const Home = () => {  
   const [images, setImages] = useState({
     heroImage: "",
     freshFlowers: "",
@@ -24,8 +25,9 @@ const Home = () => {  // Define the functional component
     fresheners: "",
   });
 
+  const navigate = useNavigate(); 
+
   useEffect(() => {
-    // Function to fetch a single image by ID
     const fetchImage = async (id, key) => {
       try {
         const response = await fetch(`http://localhost:3000/api/flowers/${id}`);
@@ -39,19 +41,20 @@ const Home = () => {  // Define the functional component
       }
     };
 
-    // Fetch images separately by their unique IDs
-    fetchImage("67e32f83e29686944d247fe7", "heroImage"); // Hero Image
-    fetchImage("67e3341ee29686944d248000", "freshFlowers"); // Fresh Flowers Image
-    fetchImage("67e3344fe29686944d248002", "driedFlowers"); // Dried Flowers Image
+    fetchImage("67e32f83e29686944d247fe7", "heroImage"); 
+    fetchImage("67e3341ee29686944d248000", "freshFlowers"); 
+    fetchImage("67e3344fe29686944d248002", "driedFlowers"); 
     fetchImage("67e33d79e29686944d248038", "livePlants"); 
     fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
     fetchImage("67e33e00e29686944d24803c", "fresheners"); 
   }, []);
+  const handleLearnMoreClick = () => {
+    navigate('/about'); 
+  };
 
   return (
     <div className="home-container">
       <div className="container-of-desk">
-              {/* Hero Section */}
       <section className="hero">
         <h1>Kyiv <br /><strong>LuxeBouquets®</strong></h1>
         <p>
@@ -67,24 +70,21 @@ const Home = () => {  // Define the functional component
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="categories">
-  {/* First row: Fresh Flowers (Text) + Dried Flowers (Image) */}
   <div className="category">
   <p>Fresh Flowers</p>
-  <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+  <Link to="/Category" className="shop-cat">Shop now →</Link>
 </div>
 <div className="category">
   <img src={images.freshFlowers} alt="Fresh Flowers" />
 </div>
 
-  {/* Second row: Live Plants (Image) + Aroma Candles (Text) */}
   <div className="category">
     <img src={images.driedFlowers} alt="Dried Flowers" />
   </div>
   <div className="category">
     <p>Dried Flowers</p>
-    <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+    <Link to="/Category" className="shop-cat">Shop now →</Link> 
     </div>
 
 </section>
@@ -93,23 +93,21 @@ const Home = () => {  // Define the functional component
         <section className="empty-card"></section>
       <section className="categories">
          
-         {/* Third row: Live Plants (Text) + Aroma Candles (Image) */}
          <div className="category">
            <p>Live Plants</p>
-           <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+           <Link to="/Category" className="shop-cat">Shop now →</Link> 
 
          </div>
          <div className="category">
            <img src={images.livePlants} alt="Live Plants" />
          </div>
        
-         {/* Fourth row: Aroma Candles (Image) + Fresheners (Text) */}
          <div className="category">
            <img src={images.aromaCandles} alt="Aroma Candles" />
          </div>
          <div className="category">
            <p>Aroma Candles</p>
-           <Link to="/Category">Shop now →</Link> {/* ✅ Correct path */}
+           <Link to="/Category" className="shop-cat">Shop now →</Link> 
 
          </div>
             </section>
@@ -130,8 +128,8 @@ const Home = () => {  // Define the functional component
           for growing different flowers, so we always have fresh flowers...
         </p>
         <div className="learn-more">
-        <button>LEARN MORE</button>
-      </div>
+        <button onClick={handleLearnMoreClick}>LEARN MORE</button> 
+        </div>
       </section>
     </div>
     <div className="why-choose-us">
@@ -188,7 +186,6 @@ const Home = () => {  // Define the functional component
   <img src={Image} alt="Beautiful flower" className="custom-img" />
 </section>
 <section className="contact-section">
-  {/* Contact Form */}
   <div className="contact">
     <h2>To Contact Us</h2>
     <p>We will call you back</p>
@@ -196,9 +193,7 @@ const Home = () => {  // Define the functional component
     <button>BOOK A CALL</button>
   </div>
 
-  {/* Phone & Address Section in a Grid */}
   <div className="contact-details">
-    {/* Phone Section */}
     <div className="contact-item">
       <h3>Phone</h3>
       <div className="phone">
@@ -211,7 +206,6 @@ const Home = () => {  // Define the functional component
       </div>
     </div>
 
-    {/* Address Section */}
     <div className="contact-item">
       <h3>Address</h3>
       <p>OPENING HOURS: 8 TO 11 P.M.</p>

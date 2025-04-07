@@ -41,16 +41,24 @@ const MobileMenu = ({ onCartClick }) => {
             </Link>
           </li>
           <li>
-            <a href="#">Shop</a>
-          </li>
+  <Link to="/product" onClick={() => setIsOpen(false)}>
+    Shop
+  </Link>
+</li>
+
           <li>
             <a href="#">Service</a>
           </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-          <li>
-            <a href="#">About us</a>
+          <li> 
+          <Link to="/contact" onClick={() => setIsOpen(false)}>
+    contact
+  </Link>
+  </li>
+
+          <li> 
+          <Link to="/about" onClick={() => setIsOpen(false)}>
+    About us
+  </Link>
           </li>
         </ul>
         <div className="policy">
