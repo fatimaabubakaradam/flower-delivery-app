@@ -15,7 +15,6 @@ const addFlower = async (req, res) => {
     const price = parseFloat(req.body.price); 
     const imagePath = `/uploads/${req.file.filename}`;
 
-    // Save flower to MongoDB
     const newFlower = new Flower({ name, description, price, category, image: imagePath });
     await newFlower.save();
 
@@ -27,7 +26,6 @@ const addFlower = async (req, res) => {
   }
 };
 
-// Function to get all flowers
 const getAllFlowers = async (req, res) => {
   try {
     console.log("Fetching all flowers...");
