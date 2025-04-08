@@ -19,9 +19,9 @@ const SignIn = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token); // Store JWT in localStorage
+        localStorage.setItem("token", data.token); 
         alert("Sign in successful!");
-        window.location.href = "/"; // Redirect to home page
+        window.location.href = "/"; 
       } else {
         alert("Login failed: " + data.message);
       }

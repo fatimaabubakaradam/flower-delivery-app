@@ -7,7 +7,6 @@ const SignInModal = ({ onClose }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Simulate login & get JWT Token
     const token = "fake-jwt-token"; 
     login(token);
     onClose();

@@ -22,6 +22,9 @@ const Cart = ({ onClose }) => {
         });
       })
       .catch((err) => console.error("Error fetching flower:", err));
+
+    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartItems(savedCartItems);
   }, []);
 
   const handleAddToCart = () => {
@@ -30,7 +33,11 @@ const Cart = ({ onClose }) => {
       return;
     }
 
-    setCartItems((prevItems) => [...prevItems, flower]);
+    const newCartItems = [...cartItems, flower];
+    setCartItems(newCartItems);
+
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+
     alert("Item added to cart!");
   };
 
@@ -42,7 +49,15 @@ const Cart = ({ onClose }) => {
     setCheckout(true);
   };
 
-  // Calculate subtotal and total
+  const handleRemoveFromCart = (index) => {
+    const newCartItems = cartItems.filter((_, i) => i !== index);
+    setCartItems(newCartItems);
+
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+
+    alert("Item removed from cart.");
+  };
+
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
@@ -61,19 +76,31 @@ const Cart = ({ onClose }) => {
       ) : (
         flower && (
           <div className="cart-content">
-            <div className="cart-item">
-              <img
-                src={flower.imageUrl}
-                alt={flower.name}
-                className="flower-image"
-              />
-              <div className="cart-item-details">
-                <h3 className="flower-name">{flower.name}</h3>
-                <p className="quantity">Quantity (1)</p>
-                <p className="price">${flower.price}</p>
-                <button className="remove-btn">Remove</button>
-              </div>
-            </div>
+            {cartItems.length > 0 ? (
+              cartItems.map((item, index) => (
+                <div className="cart-item" key={index}>
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="flower-image"
+                  />
+                  <div className="cart-item-details">
+                    <h3 className="flower-name">{item.name}</h3>
+                    <p className="quantity">Quantity (1)</p>
+                    <p className="price">${item.price}</p>
+                    <button
+                      className="remove-btn"
+                      onClick={() => handleRemoveFromCart(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Your cart is empty.</p>
+            )}
+
             <div className="cart-summary">
               <div className="subtotal">
                 <p>Subtotal</p>
