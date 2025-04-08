@@ -1,11 +1,10 @@
 const Flower = require("../models/flowerModel");
 
-// Function to add a flower
 const addFlower = async (req, res) => {
   try {
     console.log("🟢 Request Received");
     console.log("📦 Request Body:", req.body);
-    console.log("📸 Uploaded File:", req.file); // Log the uploaded file
+    console.log("📸 Uploaded File:", req.file); 
 
     if (!req.file) {
       console.error("❌ Image Upload Missing");
@@ -13,7 +12,7 @@ const addFlower = async (req, res) => {
     }
 
     const { name, description, category } = req.body;
-    const price = parseFloat(req.body.price); // Ensure price is a number
+    const price = parseFloat(req.body.price); 
     const imagePath = `/uploads/${req.file.filename}`;
 
     // Save flower to MongoDB
@@ -40,11 +39,10 @@ const getAllFlowers = async (req, res) => {
   }
 };
 
-// Function to get a single flower by ID
 const getFlowerById = async (req, res) => {
   try {
-    const { id } = req.params; // Get ID from URL
-    const flower = await Flower.findById(id); // Find flower by ID
+    const { id } = req.params; 
+    const flower = await Flower.findById(id); 
 
     if (!flower) {
       return res.status(404).json({ message: "Flower not found" });
@@ -57,7 +55,6 @@ const getFlowerById = async (req, res) => {
   }
 };
 
-// Function to delete a flower
 const deleteFlower = async (req, res) => {
   try {
     console.log(`🗑 Attempting to delete flower with ID: ${req.params.id}`);
@@ -74,5 +71,4 @@ const deleteFlower = async (req, res) => {
   }
 };
 
-// Export all functions (Ensure `getFlowerById` is included)
 module.exports = { addFlower, getAllFlowers, getFlowerById, deleteFlower };
