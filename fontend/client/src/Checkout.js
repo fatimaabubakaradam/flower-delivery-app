@@ -1,6 +1,6 @@
 import React from "react";
 import "./Checkout.css"; 
-import flowersnofall from "./assets/Rectangle.png"; // Ensure correct path
+import flowersnofall from "./assets/Rectangle.png"; 
 import { FaLock } from "react-icons/fa"; 
 // import Review from "./review";
 
