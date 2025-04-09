@@ -30,11 +30,11 @@ const Home = () => {
   useEffect(() => {
     const fetchImage = async (id, key) => {
       try {
-        const response = await fetch(`http://localhost:3000/api/flowers/${id}`);
+        const response = await fetch(`https://flower-delivery-app-backend.onrender.com/api/flowers/${id}`);
         const data = await response.json();
         setImages((prevImages) => ({
           ...prevImages,
-          [key]: `http://localhost:3000${data.image}`,
+          [key]: `https://flower-delivery-app-backend.onrender.com${data.image}`,
         }));
       } catch (error) {
         console.error(`Error fetching ${key} image:`, error);

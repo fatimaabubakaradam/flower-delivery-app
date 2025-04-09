@@ -32,18 +32,19 @@ mongoose
 // ✅ CORS Configuration (allow both local and production origins)
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://flower-delivery-app-fontend-client.onrender.com' 
-    : 'http://localhost:3001', 
+    ? 'https://flower-delivery-app-fontend-client.onrender.com' // Production frontend URL
+    : 'http://localhost:3001', // Local frontend URL for development
   methods: 'GET,POST,PUT,DELETE', 
   credentials: true, 
 };
 
 app.use(cors(corsOptions));
 
+
 // ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads")); // Serve images from the "uploads" folder
 
 // ✅ Root route
 app.get("/", (req, res) => {
