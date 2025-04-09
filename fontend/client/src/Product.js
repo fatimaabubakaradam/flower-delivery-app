@@ -12,7 +12,10 @@ const Product = () => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token); // Check if user is authenticated
 
-    fetch("http://localhost:3000/api/flowers")
+    // Get the API URL from environment variables (set in .env files)
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000"; // Fallback to localhost for development
+
+    fetch(`${apiUrl}/api/flowers`)
       .then((res) => res.json())
       .then((data) => {
         const flowerIds = [
@@ -86,8 +89,9 @@ const Product = () => {
           {flowers.length > 0 ? (
             flowers.map((flower) => (
               <div key={flower._id} className="flower-item">
+                {/* Use the full URL for the flower image */}
                 <img
-                  src={flower.image} 
+                  src={`${process.env.REACT_APP_API_URL || 'http://localhost:3000'}${flower.image}`}
                   alt="Flower"
                   className="product-flower-image"
                 />

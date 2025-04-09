@@ -4,7 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const flowerRoutes = require("./routes/flowerRoutes");
-const userRoutes = require("./routes/userRoutes"); // ✅ Import userRoutes
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,15 +31,25 @@ mongoose
 
 // ✅ CORS Configuration (allow both local and production origins)
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://flower-delivery-app-fontend-client.onrender.com' // Production frontend URL
-    : 'http://localhost:3001', // Local frontend URL for development
-  methods: 'GET,POST,PUT,DELETE', 
-  credentials: true, 
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:3001', // Local development URL
+      'https://flower-delivery-app-fontend-client.onrender.com', // Production frontend URL
+    ];
+
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow the request
+    } else {
+      console.log(`Blocked by CORS: ${origin}`);
+      callback(new Error('CORS policy does not allow this origin'), false); // Reject the request
+    }
+  },
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  credentials: true,
 };
 
+// Apply CORS middleware
 app.use(cors(corsOptions));
-
 
 // ✅ Middleware
 app.use(express.json());
@@ -54,15 +64,6 @@ app.get("/", (req, res) => {
 // ✅ API Routes
 app.use("/api/flowers", flowerRoutes);
 app.use("/api/users", userRoutes); // ✅ Use this for register, login, profile
-
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the Flower API!" });
-});
-
-// ✅ API Routes
-app.use("/api/flowers", flowerRoutes);
-app.use("/api/users", userRoutes); // ✅ Use this for register, login, profile
-
 
 // ✅ Logging incoming requests
 app.use((req, res, next) => {
