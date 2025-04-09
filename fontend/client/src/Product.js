@@ -12,7 +12,7 @@ const Product = () => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token); // Check if user is authenticated
 
-    fetch("https://flower-delivery-app-fontend-client.onrender.com")
+    fetch("https://flower-delivery-app-backend.onrender.com")
       .then((res) => res.json())
       .then((data) => {
         const flowerIds = [
