@@ -114,11 +114,12 @@ If you have any questions or feedback, feel free to contact:
 
 **Email:** fatimammcy@gmail.com 
 
-**GitHub:**  Flower delivery Website Repository
-feature-1
+**GitHub:**  Flower delivery 
+App
 
+**website:** https://flower-delivery-app-fontend-client.onrender.com
 
-**website:** https://flower-delivery-website.onrender.com/api/flowers
+**backend:** https://flower-delivery-app-backend.onrender.com
 
 **watch my loom video** https://www.loom.com/share/b4f5b687e2314e308de1a2f2eeb40c14
 
