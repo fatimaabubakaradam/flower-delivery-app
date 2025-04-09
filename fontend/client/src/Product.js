@@ -15,13 +15,18 @@ const Product = () => {
     fetch("https://flower-delivery-app-backend.onrender.com")
       .then((res) => res.json())
       .then((data) => {
-        const flowerIds = [
-          "67eab1d086eedae53895d2eb",
-          "67eab39686eedae53895d2ee",
-          "67eab3c386eedae53895d2f0",
-          "67eab3f486eedae53895d2f2",
-        ];
-        setFlowers(data.filter((flower) => flowerIds.includes(flower._id)));
+        console.log(data);  // Log the data to see its structure
+        if (Array.isArray(data)) {
+          const flowerIds = [
+            "67eab1d086eedae53895d2eb",
+            "67eab39686eedae53895d2ee",
+            "67eab3c386eedae53895d2f0",
+            "67eab3f486eedae53895d2f2",
+          ];
+          setFlowers(data.filter((flower) => flowerIds.includes(flower._id)));
+        } else {
+          console.error("Received data is not an array:", data);
+        }
       })
       .catch((error) => console.error("Error fetching flowers:", error));
   }, []);
@@ -87,7 +92,7 @@ const Product = () => {
             flowers.map((flower) => (
               <div key={flower._id} className="flower-item">
                 <img
-                  src={flower.image} 
+                  src={flower.image}
                   alt="Flower"
                   className="product-flower-image"
                 />
