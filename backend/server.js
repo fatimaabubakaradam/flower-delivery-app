@@ -29,8 +29,18 @@ mongoose
     process.exit(1);
   });
 
+// ✅ CORS Configuration (allow both local and production origins)
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://flower-delivery-app-fontend-client.onrender.com' 
+    : 'http://localhost:3001', 
+  methods: 'GET,POST,PUT,DELETE', 
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
 // ✅ Middleware
-app.use(cors({ origin: "http://localhost:3001", credentials: true })); // Allow frontend on port 3001
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));

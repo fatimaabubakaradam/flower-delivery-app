@@ -6,7 +6,6 @@ const Review = () => {
   return (
     <div className="footer-container">
       
-      {/* Reminder Box */}
       <section className="reminder-box">
         <p>
           Remember to offer beautiful flowers from Kyiv LuxeBouquets 
@@ -17,7 +16,6 @@ const Review = () => {
         <button className="remind-button">REMIND</button>
       </section>
 
-      {/* Contact Box */}
       <section className="contact-box">
         <h3>Contact Us</h3>
         <p className="contact-label">Address</p>
@@ -39,7 +37,6 @@ const Review = () => {
         </div>
       </section>
 
-      {/* Bottom Section with Shop, Service, and About Us */}
       <section className="bottom-section">
         <div className="section">
           <h3>Shop</h3>

@@ -1,6 +1,6 @@
 const express = require("express");
 const upload = require("../config/multerConfig"); 
-const { addFlower, getAllFlowers, getFlowerById, deleteFlower } = require("../controllers/flowerController"); // Ensure `getFlowerById` is imported
+const { addFlower, getAllFlowers, getFlowerById, deleteFlower } = require("../controllers/flowerController"); 
 
 const router = express.Router();
 
