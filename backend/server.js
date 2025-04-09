@@ -55,6 +55,15 @@ app.get("/", (req, res) => {
 app.use("/api/flowers", flowerRoutes);
 app.use("/api/users", userRoutes); // ✅ Use this for register, login, profile
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Flower API!" });
+});
+
+// ✅ API Routes
+app.use("/api/flowers", flowerRoutes);
+app.use("/api/users", userRoutes); // ✅ Use this for register, login, profile
+
+
 // ✅ Logging incoming requests
 app.use((req, res, next) => {
   console.log(`📩 ${req.method} ${req.url}`);

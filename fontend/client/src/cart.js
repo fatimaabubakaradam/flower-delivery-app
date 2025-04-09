@@ -13,7 +13,7 @@ const Cart = ({ onClose }) => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
 
-    fetch("https://flower-delivery-app-backend.onrender.com/67e30aff5eff241e26fdb397")
+    fetch("http://localhost:3000/api/flowers/67e30aff5eff241e26fdb397")
       .then((res) => res.json())
       .then((data) => {
         setFlower({

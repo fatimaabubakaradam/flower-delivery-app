@@ -12,23 +12,16 @@ const Product = () => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token); // Check if user is authenticated
 
-    fetch("https://flower-delivery-app-backend.onrender.com")
+    fetch("http://localhost:3000/api/flowers")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);  // Log the entire response to see its structure
-
-        // Check if data.flowers is an array and filter by IDs
-        if (Array.isArray(data.flowers)) {
-          const flowerIds = [
-            "67eab1d086eedae53895d2eb",
-            "67eab39686eedae53895d2ee",
-            "67eab3c386eedae53895d2f0",
-            "67eab3f486eedae53895d2f2",
-          ];
-          setFlowers(data.flowers.filter((flower) => flowerIds.includes(flower._id)));
-        } else {
-          console.error("Expected an array of flowers but received:", data);
-        }
+        const flowerIds = [
+          "67eab1d086eedae53895d2eb",
+          "67eab39686eedae53895d2ee",
+          "67eab3c386eedae53895d2f0",
+          "67eab3f486eedae53895d2f2",
+        ];
+        setFlowers(data.filter((flower) => flowerIds.includes(flower._id)));
       })
       .catch((error) => console.error("Error fetching flowers:", error));
   }, []);
@@ -94,7 +87,7 @@ const Product = () => {
             flowers.map((flower) => (
               <div key={flower._id} className="flower-item">
                 <img
-                  src={flower.image} // Ensure 'image' is the correct field in the data
+                  src={flower.image} 
                   alt="Flower"
                   className="product-flower-image"
                 />
