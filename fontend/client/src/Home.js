@@ -30,29 +30,26 @@ const Home = () => {
   useEffect(() => {
     const fetchImage = async (id, key) => {
       try {
-        // Use the environment variable for the API URL
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(`${apiUrl}/api/flowers/${id}`);
+        const response = await fetch(`http://localhost:3000/api/flowers/${id}`);
         const data = await response.json();
         setImages((prevImages) => ({
           ...prevImages,
-          [key]: `${apiUrl}${data.image}`, // Dynamically set the image URL
+          [key]: `http://localhost:3000${data.image}`,
         }));
       } catch (error) {
         console.error(`Error fetching ${key} image:`, error);
       }
     };
 
-    fetchImage("67e32f83e29686944d247fe7", "heroImage");
-    fetchImage("67e3341ee29686944d248000", "freshFlowers");
-    fetchImage("67e3344fe29686944d248002", "driedFlowers");
-    fetchImage("67e33d79e29686944d248038", "livePlants");
-    fetchImage("67e33db7e29686944d24803a", "aromaCandles");
-    fetchImage("67e33e00e29686944d24803c", "fresheners");
+    fetchImage("67e32f83e29686944d247fe7", "heroImage"); 
+    fetchImage("67e3341ee29686944d248000", "freshFlowers"); 
+    fetchImage("67e3344fe29686944d248002", "driedFlowers"); 
+    fetchImage("67e33d79e29686944d248038", "livePlants"); 
+    fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
+    fetchImage("67e33e00e29686944d24803c", "fresheners"); 
   }, []);
-
   const handleLearnMoreClick = () => {
-    navigate('/about');
+    navigate('/about'); 
   };
 
   return (
