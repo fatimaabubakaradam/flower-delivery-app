@@ -25,49 +25,28 @@ const Home = () => {
     fresheners: "",
   });
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchImage = async (id, key) => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/flowers/${id}`);
-        
-        // Check if the response is ok (status 200)
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image for ${key}: ${response.statusText}`);
-        }
-
+        const response = await fetch(`http://localhost:3000/api/flowers/${id}`);
         const data = await response.json();
-
-        // If image path starts with /uploads/, construct the full URL
-        const imageUrl = data.image?.startsWith("/uploads/")
-          ? `${process.env.REACT_APP_API_URL}${data.image}`
-          : data.image;
-
-        console.log(`${key} image URL:`, imageUrl); // Debugging line to check the image URL
-
         setImages((prevImages) => ({
           ...prevImages,
-          [key]: imageUrl,
+          [key]: `http://localhost:3000${data.image}`,
         }));
       } catch (error) {
         console.error(`Error fetching ${key} image:`, error);
-        setError(`Error fetching ${key} image: ${error.message}`);
       }
     };
 
-    // Fetching images
-    fetchImage("/uploads/67e32f83e29686944d247fe7", "heroImage"); 
-    fetchImage("/uploads/67e3341ee29686944d248000", "freshFlowers"); 
-    fetchImage("/uploads/67e3344fe29686944d248002", "driedFlowers"); 
-    fetchImage("/uploads/67e33d79e29686944d248038", "livePlants"); 
-    fetchImage("/uploads/67e33db7e29686944d24803a", "aromaCandles"); 
-    fetchImage("/uploads/67e33e00e29686944d24803c", "fresheners"); 
-
-    setLoading(false);
+    fetchImage("67e32f83e29686944d247fe7", "heroImage"); 
+    fetchImage("67e3341ee29686944d248000", "freshFlowers"); 
+    fetchImage("67e3344fe29686944d248002", "driedFlowers"); 
+    fetchImage("67e33d79e29686944d248038", "livePlants"); 
+    fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
+    fetchImage("67e33e00e29686944d24803c", "fresheners"); 
   }, []);
   const handleLearnMoreClick = () => {
     navigate('/about'); 
