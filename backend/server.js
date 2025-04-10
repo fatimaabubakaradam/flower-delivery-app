@@ -47,14 +47,10 @@ const corsOptions = {
   credentials: true,
 };
 
-const cors = require('cors');
-app.use(cors({
-  origin: 'https://flower-delivery-app-fontend-client.onrender.com', // Your deployed front-end URL
-}));
+// ✅ Apply CORS middleware
+app.use(cors(corsOptions)); // Apply the CORS options defined earlier
 
-
-// ✅ Apply middleware
-app.use(cors(corsOptions));
+// ✅ Apply other middleware
 app.use(express.json());  // To parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));  // To parse URL-encoded data
 app.use("/uploads", express.static("uploads"));  // Serve images from "uploads" folder
