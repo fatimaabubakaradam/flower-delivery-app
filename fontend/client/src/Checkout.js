@@ -1,30 +1,47 @@
 import React from "react";
-import "./Checkout.css"; 
-import flowersnofall from "./assets/Rectangle.png"; 
-import { FaLock } from "react-icons/fa"; 
-// import Review from "./review";
+import "./Checkout.css";
+import { FaLock } from "react-icons/fa";
 
+const Checkout = ({ cartItems, total }) => {
+  const handlePayment = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/payments/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cartItems }),
+      });
 
-const Checkout = () => {
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Something went wrong. Try again.");
+    }
+  };
+
   return (
     <div className="checkout-container">
-      <div className="item">
-        <img
-          src={flowersnofall}
-          alt="Beautiful Flower Arrangement"
-          className="product-image"
-        />
-        <div className="details">
-          <h3>Snowfall</h3>
-          <p>Quantity (1)</p>
+      {cartItems.map((item, index) => (
+        <div className="item" key={index}>
+          <img
+            src={item.imageUrl}
+            alt={item.name}
+            className="product-image"
+          />
+          <div className="details">
+            <h3>{item.name}</h3>
+            <p>Quantity (1)</p>
+          </div>
+          <div className="price">${item.price.toFixed(2)}</div>
         </div>
-        <div className="price">$100</div>
-      </div>
+      ))}
 
       <div className="summary">
         <div className="row">
           <span>Subtotal</span>
-          <span>$100.00</span>
+          <span>${total.toFixed(2)}</span>
         </div>
         <div className="row">
           <span>Shipping</span>
@@ -32,14 +49,16 @@ const Checkout = () => {
         </div>
         <div className="row total">
           <span>Total</span>
-          <span>$100.00</span>
+          <span>${total.toFixed(2)}</span>
         </div>
         <div className="secure-checkout">
           <span>Secure Checkout</span>
           <FaLock className="icon" />
         </div>
+        <button className="checkout-btn" onClick={handlePayment}>
+          Proceed to Payment
+        </button>
       </div>
-
     </div>
   );
 };

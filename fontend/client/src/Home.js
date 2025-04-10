@@ -30,23 +30,29 @@ const Home = () => {
   useEffect(() => {
     const fetchImage = async (id, key) => {
       try {
-        const response = await fetch(`http://localhost:3000/api/flowers/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/flowers/${id}`);
         const data = await response.json();
+        
+        // If image path starts with /uploads/, construct the full URL
+        const imageUrl = data.image?.startsWith("/uploads/")
+          ? `${process.env.REACT_APP_API_URL}${data.image}`
+          : data.image;
+
         setImages((prevImages) => ({
           ...prevImages,
-          [key]: `http://localhost:3000${data.image}`,
+          [key]: imageUrl,
         }));
       } catch (error) {
         console.error(`Error fetching ${key} image:`, error);
       }
     };
 
-    fetchImage("67e32f83e29686944d247fe7", "heroImage"); 
-    fetchImage("67e3341ee29686944d248000", "freshFlowers"); 
-    fetchImage("67e3344fe29686944d248002", "driedFlowers"); 
-    fetchImage("67e33d79e29686944d248038", "livePlants"); 
-    fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
-    fetchImage("67e33e00e29686944d24803c", "fresheners"); 
+    fetchImage("/uploads/67e32f83e29686944d247fe7", "heroImage"); 
+    fetchImage("/uploads/67e3341ee29686944d248000", "freshFlowers"); 
+    fetchImage("/uploads/67e3344fe29686944d248002", "driedFlowers"); 
+    fetchImage("/uploads/67e33d79e29686944d248038", "livePlants"); 
+    fetchImage("/uploads/67e33db7e29686944d24803a", "aromaCandles"); 
+    fetchImage("/uploads/67e33e00e29686944d24803c", "fresheners"); 
   }, []);
   const handleLearnMoreClick = () => {
     navigate('/about'); 
