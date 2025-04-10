@@ -47,6 +47,12 @@ const corsOptions = {
   credentials: true,
 };
 
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://flower-delivery-app-fontend-client.onrender.com', // Your deployed front-end URL
+}));
+
+
 // ✅ Apply middleware
 app.use(cors(corsOptions));
 app.use(express.json());  // To parse JSON request bodies
@@ -60,6 +66,9 @@ app.use((req, res, next) => {
   console.log("Body:", req.body);
   next();
 });
+
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ✅ Root route
 app.get("/", (req, res) => {
