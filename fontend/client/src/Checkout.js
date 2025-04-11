@@ -34,14 +34,14 @@ const Checkout = ({ cartItems, total }) => {
             <h3>{item.name}</h3>
             <p>Quantity (1)</p>
           </div>
-          <div className="price">${item.price.toFixed(2)}</div>
+          <div className="price">${(item.price ?? 0).toFixed(2)}</div>
         </div>
       ))}
 
       <div className="summary">
         <div className="row">
           <span>Subtotal</span>
-          <span>${total.toFixed(2)}</span>
+          <span>${(total ?? 0).toFixed(2)}</span>
         </div>
         <div className="row">
           <span>Shipping</span>
@@ -49,7 +49,7 @@ const Checkout = ({ cartItems, total }) => {
         </div>
         <div className="row total">
           <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>${(total ?? 0).toFixed(2)}</span>
         </div>
         <div className="secure-checkout">
           <span>Secure Checkout</span>

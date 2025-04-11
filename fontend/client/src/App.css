@@ -421,7 +421,7 @@ justify-content: center;
     line-height: 1.6;
 }
 .custom-img {
-    width: 100%; 
+    width: 100%;  
     height: auto; 
     display: block; 
     margin: 0 auto; 
@@ -431,7 +431,7 @@ justify-content: center;
     text-align: center;
   }
   .custom-img-1 {
-    width: 100%; 
+     width: 100%;  
     height: auto; 
     display: block; 
     margin: 0 auto; 
@@ -553,7 +553,10 @@ justify-content: center;
     background: black;
     color: white;
   }
-   
+   .img-contact-card{
+    border: 1px solid black;
+
+   }
   .reviews-card {
     border-top: 1px solid black;
 
@@ -795,8 +798,12 @@ justify-content: center;
       display: grid;
       grid-template-columns: 1fr 1fr; 
     }
-    .title{
+    .title {
       border: 1px solid black; 
+
+    }
+    .title h2{
+      font-size: 35px;
 
     }
     .img-contact-card{

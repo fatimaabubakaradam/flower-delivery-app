@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Category.css";
-import Fresh from "./assets/fresh.png";
+import Dry from "./assets/dried.png";
+
 import Review from "./review";
 
 const Category = () => {
@@ -37,7 +39,7 @@ const Category = () => {
     <div>
       <div className="cat-con-flower">
         <section className="category-container">
-          <img src={Fresh} alt="Fresh Flowers" className="category-image" />
+          <img src={Dry} alt="Fresh Flowers" className="category-image" />
         </section>
         <section className="flowers-list">
           {flowers.length > 0 ? (

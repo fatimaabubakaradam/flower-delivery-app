@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Product.css";
-import flowercup from "./assets/cup.png";
 import Review from "./review";
 
 const Product = () => {
-  const [flowers, setFlowers] = useState([]);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [flower, setFlower] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token); // Check if user is authenticated
+    setIsAuthenticated(!!token);
 
-    // Get the API URL from environment variables (set in .env files)
-    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000"; // Fallback to localhost for development
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
-    fetch(`${apiUrl}/api/flowers`)
+    fetch(`${apiUrl}/api/flowers/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        const flowerIds = [
-          "67eab1d086eedae53895d2eb",
-          "67eab39686eedae53895d2ee",
-          "67eab3c386eedae53895d2f0",
-          "67eab3f486eedae53895d2f2",
-        ];
-        setFlowers(data.filter((flower) => flowerIds.includes(flower._id)));
+        setFlower({
+          ...data,
+          imageUrl: `${apiUrl}${data.image}`,
+        });
       })
-      .catch((error) => console.error("Error fetching flowers:", error));
-  }, []);
+      .catch((error) => console.error("Error fetching flower:", error));
+  }, [id]);
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
@@ -35,73 +33,61 @@ const Product = () => {
       return;
     }
 
+    const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const newCart = [...existingCart, { ...flower }];
+    localStorage.setItem("cartItems", JSON.stringify(newCart));
+
     alert("Item added to cart!");
+    navigate("/cart");
   };
 
   return (
     <div className="product-container">
-      <div className="pro-con-desktop">
-        <section className="product-image-container">
-          <img
-            src={flowercup}
-            alt="Beautiful Flower Arrangement"
-            className="product-image"
-          />
-        </section>
+      {flower ? (
+        <div className="pro-con-desktop">
+          <section className="product-image-container">
+            <img
+              src={flower.imageUrl}
+              alt={flower.name}
+              className="product-image"
+            />
+          </section>
 
-        <section className="product-details">
-          <h1 className="product-title">Rosy Delight - $100</h1>
-          <p className="product-description">
-            Large exceptional bouquet composed of a selection of David Austin roses.
-          </p>
+          <section className="product-details">
+            <h1 className="product-title">{flower.name} - ${flower.price}</h1>
+            <p className="product-description">{flower.description}</p>
 
-          <div className="quantity-section">
-            <p>Quantity</p>
-            <div className="quantity-controls">
-              <button
-                onClick={() => setQuantity(quantity - 1)}
-                disabled={quantity <= 1}
-              >
-                −
-              </button>
-              <input
-                type="text"
-                value={quantity}
-                readOnly
-                className="quantity-input"
-              />
-              <button onClick={() => setQuantity(quantity + 1)}>+</button>
-            </div>
-          </div>
-
-          <button
-            className="add-to-basket"
-            onClick={handleAddToCart}
-            disabled={!isAuthenticated}
-          >
-            ADD TO BASKET
-          </button>
-        </section>
-      </div>
-
-      <section className="product-flowers-list">
-        <div className="product-flowers-container">
-          {flowers.length > 0 ? (
-            flowers.map((flower) => (
-              <div key={flower._id} className="flower-item">
-                {/* Use the full URL for the flower image */}
-                <img
-                  src={`${process.env.REACT_APP_API_URL || 'http://localhost:3000'}${flower.image}`}
-                  alt="Flower"
-                  className="product-flower-image"
+            <div className="quantity-section">
+              <p>Quantity</p>
+              <div className="quantity-controls">
+                <button
+                  onClick={() => setQuantity(quantity - 1)}
+                  disabled={quantity <= 1}
+                >
+                  −
+                </button>
+                <input
+                  type="text"
+                  value={quantity}
+                  readOnly
+                  className="quantity-input"
                 />
+                <button onClick={() => setQuantity(quantity + 1)}>+</button>
               </div>
-            ))
-          ) : (
-            <p>Loading flowers...</p>
-          )}
+            </div>
+
+            <button
+              className="add-to-basket"
+              onClick={handleAddToCart}
+              disabled={!isAuthenticated}
+            >
+              ADD TO BASKET
+            </button>
+          </section>
         </div>
-      </section>
+      ) : (
+        <p>Loading flower...</p>
+      )}
 
       <Review />
     </div>

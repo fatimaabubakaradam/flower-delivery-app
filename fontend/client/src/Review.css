@@ -19,6 +19,7 @@ margin-top: 10px;
   }
   .section-1 ul li {
 text-decoration: none;
+list-style: none;
   }
   .remind-button {
     margin-top: 30px;

@@ -84,7 +84,7 @@ const Home = () => {
   </div>
   <div className="category">
     <p>Dried Flowers</p>
-    <Link to="/Category" className="shop-cat">Shop now →</Link> 
+    <Link to="/Category1" className="shop-cat">Shop now →</Link> 
     </div>
 
 </section>
@@ -95,7 +95,7 @@ const Home = () => {
          
          <div className="category">
            <p>Live Plants</p>
-           <Link to="/Category" className="shop-cat">Shop now →</Link> 
+           <Link to="/Category2" className="shop-cat">Shop now →</Link> 
 
          </div>
          <div className="category">
@@ -107,7 +107,7 @@ const Home = () => {
          </div>
          <div className="category">
            <p>Aroma Candles</p>
-           <Link to="/Category" className="shop-cat">Shop now →</Link> 
+           <Link to="/Category3" className="shop-cat">Shop now →</Link> 
 
          </div>
             </section>

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./signin.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch("http://localhost:3000/api/users/signin", {
@@ -19,15 +22,17 @@ const SignIn = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token); 
+        localStorage.setItem("token", data.token);
         alert("Sign in successful!");
-        window.location.href = "/"; 
+        navigate("/"); // redirect to homepage
       } else {
         alert("Login failed: " + data.message);
       }
     } catch (error) {
       console.error("Sign-in error:", error);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,8 +57,14 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">CONTINUE</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing in..." : "CONTINUE"}
+        </button>
       </form>
+
+      <p style={{ marginTop: "10px" }}>
+        Don't have an account? <Link to="/signup">Register here</Link>
+      </p>
 
       <div className="signin-footer">
         <Link to="#">Privacy Policy</Link>
