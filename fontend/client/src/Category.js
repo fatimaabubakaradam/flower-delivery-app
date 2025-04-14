@@ -8,7 +8,7 @@ const Category = () => {
   const [flowers, setFlowers] = useState([]);
 
   useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
     fetch(`${apiUrl}/api/flowers`)
       .then((res) => res.json())
@@ -48,7 +48,7 @@ const Category = () => {
                 className="flower-card"
               >
                 <img
-                  src={`${process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com'}${flower.image}`}
+                  src={`${process.env.REACT_APP_API_URL || 'http://localhost:3000'}${flower.image}`}
                   alt={flower.name}
                   className="flower-image"
                 />

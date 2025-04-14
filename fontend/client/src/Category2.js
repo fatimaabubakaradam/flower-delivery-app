@@ -11,7 +11,7 @@ const Category = () => {
   const [flowers, setFlowers] = useState([]);
 
   useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
     fetch(`${apiUrl}/api/flowers`)
       .then((res) => res.json())
@@ -26,7 +26,7 @@ const Category = () => {
           "67fd58e6c037fa1d857d9598",
           "67fd5943c037fa1d857d959c",
           "67fd598ac037fa1d857d959f",
-          "67fd59f9c037fa1d857d95a4",
+          "67fd5fb6c037fa1d857d95dc",
         ];
         const freshFlowers = data.filter((flower) =>
           flowerIds.includes(flower._id)
@@ -53,7 +53,7 @@ const Category = () => {
                 className="flower-card"
               >
                 <img
-                  src={`${process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com'}${flower.image}`}
+                  src={`${process.env.REACT_APP_API_URL || 'http://localhost:3000'}${flower.image}`}
                   alt={flower.name}
                   className="flower-image"
                 />
