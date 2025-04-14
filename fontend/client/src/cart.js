@@ -31,7 +31,10 @@ const Cart = () => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
   };
 
   return (
@@ -54,8 +57,8 @@ const Cart = () => {
                 />
                 <div className="cart-item-details">
                   <h3 className="flower-name">{item.name}</h3>
-                  <p className="quantity">Quantity (1)</p>
-                  <p className="price">${item.price}</p>
+                  <p className="quantity">Quantity ({item.quantity})</p>
+                  <p className="price">${item.price * item.quantity}</p>
                   <button
                     className="remove-btn"
                     onClick={() => handleRemoveFromCart(index)}

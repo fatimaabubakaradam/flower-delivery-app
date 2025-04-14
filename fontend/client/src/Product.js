@@ -34,7 +34,7 @@ const Product = () => {
     }
 
     const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const newCart = [...existingCart, { ...flower }];
+    const newCart = [...existingCart, { ...flower, quantity }];
     localStorage.setItem("cartItems", JSON.stringify(newCart));
 
     alert("Item added to cart!");

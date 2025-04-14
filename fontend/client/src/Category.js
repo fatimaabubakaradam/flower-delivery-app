@@ -14,16 +14,16 @@ const Category = () => {
       .then((res) => res.json())
       .then((data) => {
         const flowerIds = [
-          "67e981b43ce603cc72640b52",
-          "67e98ab83ce603cc72640b88",
-          "67ea0898097e879bb235e75e",
-          "67ea08f9097e879bb235e762",
-          "67ea092f097e879bb235e764",
-          "67ea096f097e879bb235e766",
-          "67ea09a6097e879bb235e768",
-          "67ea09e7097e879bb235e76a",
-          "67ea0a16097e879bb235e76c",
-          "67ea0a5b097e879bb235e76e",
+          "67faceae47d80a58e98c842b",
+          "67facfb147d80a58e98c842d",
+          "67fad03f47d80a58e98c842f",
+          "67fad0a247d80a58e98c8431",
+          "67fad16347d80a58e98c8435",
+          "67fad1f647d80a58e98c8437",
+          "67fad27e47d80a58e98c8439",
+          "67fad2d947d80a58e98c843b",
+          "67fad33b47d80a58e98c843d",
+          "67fad38f47d80a58e98c843f",
         ];
         const freshFlowers = data.filter((flower) =>
           flowerIds.includes(flower._id)

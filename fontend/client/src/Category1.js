@@ -16,16 +16,25 @@ const Category = () => {
       .then((res) => res.json())
       .then((data) => {
         const flowerIds = [
-          "67e981b43ce603cc72640b52",
-          "67e98ab83ce603cc72640b88",
-          "67ea0898097e879bb235e75e",
-          "67ea08f9097e879bb235e762",
-          "67ea092f097e879bb235e764",
-          "67ea096f097e879bb235e766",
-          "67ea09a6097e879bb235e768",
-          "67ea09e7097e879bb235e76a",
-          "67ea0a16097e879bb235e76c",
-          "67ea0a5b097e879bb235e76e",
+          "67fb1a7347d80a58e98c8525",
+          "67fb1bce47d80a58e98c8535",
+          "67fb21ad47d80a58e98c854d",
+          "67fb21eb47d80a58e98c8550",
+          "67fb1ee447d80a58e98c853f",
+"67fb223947d80a58e98c8553",
+"67fade1847d80a58e98c8501",
+"67fafc5947d80a58e98c850b",
+"67fb1f5947d80a58e98c8542",
+"67fb1f5947d80a58e98c8542",
+"67fb1f5947d80a58e98c8542",
+"67fb1a7347d80a58e98c8525",
+"67fb1bce47d80a58e98c8535",
+
+"67fb1e9647d80a58e98c853c",
+
+
+
+          
         ];
         const freshFlowers = data.filter((flower) =>
           flowerIds.includes(flower._id)
@@ -39,8 +48,10 @@ const Category = () => {
     <div>
       <div className="cat-con-flower">
         <section className="category-container">
-          <img src={Dry} alt="Fresh Flowers" className="category-image" />
-        </section>
+  <img src={Dry} alt="Fresh Flowers" className="category-image" />
+  <div className="category-text">Dried Flowers</div>
+</section>
+
         <section className="flowers-list">
           {flowers.length > 0 ? (
             flowers.map((flower) => (
@@ -67,3 +78,8 @@ const Category = () => {
 };
 
 export default Category;
+
+
+
+
+

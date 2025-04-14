@@ -17,16 +17,16 @@ const Category = () => {
       .then((res) => res.json())
       .then((data) => {
         const flowerIds = [
-          "67e981b43ce603cc72640b52",
-          "67e98ab83ce603cc72640b88",
-          "67ea0898097e879bb235e75e",
-          "67ea08f9097e879bb235e762",
-          "67ea092f097e879bb235e764",
-          "67ea096f097e879bb235e766",
-          "67ea09a6097e879bb235e768",
-          "67ea09e7097e879bb235e76a",
-          "67ea0a16097e879bb235e76c",
-          "67ea0a5b097e879bb235e76e",
+          "67fd5750c037fa1d857d9586",
+          "67fd57a0c037fa1d857d9589",
+          "67fd57dec037fa1d857d958c",
+          "67fd5822c037fa1d857d958f",
+          "67fd5866c037fa1d857d9592",
+          "67fd58b2c037fa1d857d9595",
+          "67fd58e6c037fa1d857d9598",
+          "67fd5943c037fa1d857d959c",
+          "67fd598ac037fa1d857d959f",
+          "67fd59f9c037fa1d857d95a4",
         ];
         const freshFlowers = data.filter((flower) =>
           flowerIds.includes(flower._id)
@@ -41,6 +41,8 @@ const Category = () => {
       <div className="cat-con-flower">
         <section className="category-container">
           <img src={Live} alt="Fresh Flowers" className="category-image" />
+          <div className="category-text">Live Plants</div>
+
         </section>
         <section className="flowers-list">
           {flowers.length > 0 ? (

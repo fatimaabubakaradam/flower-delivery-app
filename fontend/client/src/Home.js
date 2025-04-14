@@ -5,7 +5,7 @@ import human from "./assets/human.png";
 import wedding from "./assets/wedding.png"
 import { FaPhone } from "react-icons/fa";
 import {  useNavigate } from "react-router-dom"; // Import useNavigate
-
+import Contact from "./assets/contact.png"
 import google from "./assets/google logo.png";
 import { Link } from "react-router-dom";
 import {  FaMapMarkerAlt } from "react-icons/fa";
@@ -183,7 +183,7 @@ const Home = () => {
     </div>
    <div className="img-contact-card">
    <section className="image-section">
-  <img src={Image} alt="Beautiful flower" className="custom-img" />
+  <img src={Contact} alt="Beautiful flower" className="custom-img" />
 </section>
 <section className="contact-section">
   <div className="contact">

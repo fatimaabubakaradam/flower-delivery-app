@@ -1,8 +1,8 @@
 .checkout-container {
     width: 100%;
     max-width: 100%;
-    margin: auto;
-    transform: translateY(-10%);
+    /* margin: auto; */
+    /* transform: translateY(-10%); */
     padding: 10px;
     font-family: Arial, sans-serif;
     border: 1px solid #151313;
