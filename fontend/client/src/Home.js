@@ -26,15 +26,16 @@ const Home = () => {
   });
 
   const navigate = useNavigate(); 
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchImage = async (id, key) => {
       try {
-        const response = await fetch(`https://flower-delivery-app-backend.onrender.com/${id}`);
+        const response = await fetch(`${API_URL}/${id}`);
         const data = await response.json();
         setImages((prevImages) => ({
           ...prevImages,
-          [key]: `https://flower-delivery-app-backend.onrender.com${data.image}`,
+          [key]: `${API_URL}${data.image}`,
         }));
       } catch (error) {
         console.error(`Error fetching ${key} image:`, error);
@@ -47,10 +48,9 @@ const Home = () => {
     fetchImage("67e33d79e29686944d248038", "livePlants"); 
     fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
     fetchImage("67e33e00e29686944d24803c", "fresheners"); 
-  }, []);
-  const handleLearnMoreClick = () => {
-    navigate('/about'); 
-  };
+  }, [API_URL]);
+
+  const handleLearnMoreClick = () => navigate("/about");
 
   return (
     <div className="home-container">
