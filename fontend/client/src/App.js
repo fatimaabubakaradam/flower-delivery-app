@@ -37,7 +37,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/PaymentSuccess" element={<PaymentSuccess />} />
         </Routes>
       </Router>
     </AuthProvider>
