@@ -7,7 +7,7 @@ const Checkout = ({ cartItems, total }) => {
   const handlePayment = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/payments/create-checkout-session",
+        "https://flower-delivery-app-backend.onrender.com/create-checkout-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
