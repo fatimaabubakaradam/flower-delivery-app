@@ -1,27 +1,45 @@
-
 import React from "react";
 import "./Checkout.css";
 import { FaLock } from "react-icons/fa";
 
 const Checkout = ({ cartItems, total }) => {
   const handlePayment = async () => {
+    console.log("Proceed to Payment clicked");
+    if (!cartItems || cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
     try {
       const response = await fetch(
-        "https://flower-delivery-app-backend.onrender.com/create-checkout-session",
+        "https://flower-delivery-app-backend.onrender.com/api/payment/create-checkout-session",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({ cartItems }),
         }
       );
 
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Server error response:", errorText);
+        alert("Payment failed. Please try again.");
+        return;
+      }
+
       const data = await response.json();
+      console.log("Server response:", data);
+
       if (data.url) {
         window.location.href = data.url;
+      } else {
+        alert("No payment link was returned. Please try again later.");
       }
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("Something went wrong. Try again.");
+      alert("Something went wrong. Please try again.");
     }
   };
 

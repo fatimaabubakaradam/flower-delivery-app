@@ -12,7 +12,6 @@ const Product = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("Token:", token);
     setIsAuthenticated(!!token);
 
     const apiUrl = process.env.REACT_APP_API_URL || "https://flower-delivery-app-backend.onrender.com";
@@ -29,30 +28,17 @@ const Product = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    console.log("Add to Cart clicked");
-    
     if (!isAuthenticated) {
       alert("Please sign in to add items to the cart.");
       return;
     }
 
-    if (!flower) {
-      alert("Product data not loaded yet.");
-      return;
-    }
-
     const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
     const newCart = [...existingCart, { ...flower, quantity }];
-
-    console.log("Existing cart:", existingCart);
-    console.log("Adding item:", { ...flower, quantity });
-
     localStorage.setItem("cartItems", JSON.stringify(newCart));
 
     alert("Item added to cart!");
-
-    // Optionally delay navigation slightly
-    setTimeout(() => navigate("/cart"), 300);
+    navigate("/cart");
   };
 
   return (
@@ -93,8 +79,7 @@ const Product = () => {
             <button
               className="add-to-basket"
               onClick={handleAddToCart}
-              // Temporarily disable this line for testing if needed
-              // disabled={!isAuthenticated}
+              disabled={!isAuthenticated}
             >
               ADD TO BASKET
             </button>
