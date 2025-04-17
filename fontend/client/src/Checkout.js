@@ -86,3 +86,5 @@ const Checkout = ({ cartItems, total }) => {
 };
 
 export default Checkout;
+
+// 4242 4242 4242 4242

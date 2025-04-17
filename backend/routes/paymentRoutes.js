@@ -60,4 +60,21 @@ router.post("/create-checkout-session", async (req, res) => {
   }
 });
 
+// GET /api/payments/session/:id
+router.get("/session/:id", async (req, res) => {
+  const sessionId = req.params.id;
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items", "payment_intent"],
+    });
+
+    res.status(200).json(session);
+  } catch (error) {
+    console.error("❌ Failed to retrieve session:", error.message);
+    res.status(500).json({ error: "Failed to retrieve session details" });
+  }
+});
+
+
 module.exports = router;
