@@ -12,7 +12,9 @@ const Checkout = ({ cartItems, total }) => {
 
     try {
       const response = await fetch(
-        "https://flower-delivery-app-backend.onrender.com/api/payment/create-checkout-session",
+        "https://flower-delivery-app-backend.onrender.com/api/payments/create-checkout-session"
+
+,
         {
           method: "POST",
           headers: {
