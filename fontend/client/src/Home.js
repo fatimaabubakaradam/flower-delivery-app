@@ -59,134 +59,156 @@ const Home = () => {
   const handleLearnMoreClick = () => navigate("/about");
 
   return (
-    <div className="home-container fade-in">
-      <section className="hero">
-        <div className="hero-text-content">
-          <h1>Kyiv <br /><strong>LuxeBouquets®</strong></h1>
-          <p>
-            Discover uniquely crafted bouquets and premium gifts for any occasion. 
-            Experience the art of floral design with our online delivery service.
-          </p>
-          <div className="learn-more">
-            <button onClick={handleLearnMoreClick}>EXPLORE OUR STORY</button> 
+    <div className="fade-in">
+      {/* Hero Section */}
+      <div className="home-container">
+        <section className="hero">
+          <div className="hero-text-content">
+            <h1>Kyiv <br /><strong>LuxeBouquets®</strong></h1>
+            <p>
+              Experience the art of gifting with our uniquely crafted bouquets 
+              and premium floral arrangements, delivered with care in Kyiv.
+            </p>
+            <button className="btn-luxe" onClick={handleLearnMoreClick}>
+              EXPLORE OUR STORY
+            </button> 
           </div>
-        </div>
-        <div className="hero-visual">
-          <OptimizedImage 
-            src={images.heroImage} 
-            alt="Woman with Luxe Bouquets" 
-            aspectRatio="4/5"
-            className="hero-img"
-          />
-        </div>
-      </section>
+          <div className="hero-visual">
+            <OptimizedImage 
+              src={images.heroImage} 
+              alt="Kyiv LuxeBouquets Hero" 
+              aspectRatio="4/5"
+              className="hero-img"
+            />
+          </div>
+        </section>
+      </div>
 
+      {/* Categories Grid */}
       <section className="categories">
         <div className="category">
-          <div style={{ padding: '40px' }}>
-            <h2>Fresh Flowers</h2>
-            <Link to="/Category" className="shop-cat">Shop the collection →</Link>
-          </div>
+          <h2>Fresh Flowers</h2>
+          <Link to="/Category" className="shop-cat">Shop now →</Link>
+          <img src={images.freshFlowers} alt="Fresh Flowers" />
         </div>
         <div className="category">
-          <OptimizedImage src={images.freshFlowers} alt="Fresh Flowers" aspectRatio="1/1" />
-        </div>
-
-        <div className="category">
-          <OptimizedImage src={images.driedFlowers} alt="Dried Flowers" aspectRatio="1/1" />
+          <img src={images.driedFlowers} alt="Dried Flowers" />
+          <h2>Dried Flowers</h2>
+          <Link to="/Category1" className="shop-cat">Shop now →</Link> 
         </div>
         <div className="category">
-          <div style={{ padding: '40px' }}>
-            <h2>Dried Flowers</h2>
-            <Link to="/Category1" className="shop-cat">Shop the collection →</Link> 
-          </div>
-        </div>
-
-        <div className="category">
-          <div style={{ padding: '40px' }}>
-            <h2>Live Plants</h2>
-            <Link to="/Category2" className="shop-cat">Shop the collection →</Link> 
-          </div>
+          <h2>Live Plants</h2>
+          <Link to="/Category2" className="shop-cat">Shop now →</Link> 
+          <img src={images.livePlants} alt="Live Plants" />
         </div>
         <div className="category">
-          <OptimizedImage src={images.livePlants} alt="Live Plants" aspectRatio="1/1" />
-        </div>
-
-        <div className="category">
-          <OptimizedImage src={images.aromaCandles} alt="Aroma Candles" aspectRatio="1/1" />
-        </div>
-        <div className="category">
-          <div style={{ padding: '40px' }}>
-            <h2>Aroma Candles</h2>
-            <Link to="/Category3" className="shop-cat">Shop the collection →</Link> 
-          </div>
+          <img src={images.aromaCandles} alt="Aroma Candles" />
+          <h2>Aroma Candles</h2>
+          <Link to="/Category3" className="shop-cat">Shop now →</Link> 
         </div>
       </section>
 
-      <section className="about" style={{ padding: '100px 0' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
-          <div>
-            <h2 style={{ fontSize: '3rem', marginBottom: '40px' }}>About us</h2>
-            <p style={{ textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.2em', color: 'var(--gold)', marginBottom: '16px' }}>Our Story</p>
-            <h3 style={{ marginBottom: '24px' }}>Kyiv LuxeBouquets</h3>
-            <p style={{ fontSize: '1.125rem', color: 'var(--text-secondary)', marginBottom: '40px' }}>
-              We are a modern local floral studio specializing in the design and delivery of unique bouquets. 
+      {/* About Section */}
+      <div className="home-container">
+        <section className="about">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '100px', alignItems: 'center' }}>
+            <div className="about-visual">
+              <OptimizedImage src={human} alt="LuxeBouquets Studio" aspectRatio="1/1" />
+            </div>
+            <div className="about-content">
+              <span className="about-label">Since 2012</span>
+              <h2>About us</h2>
+              <p style={{ marginBottom: '32px', fontSize: '1.125rem' }}>
+                We are a modern local floral studio specializing in the design and delivery of unique bouquets. 
+                Our florists hand-pick each bloom from direct partnerships with leading farms.
+              </p>
+              <button className="btn-luxe btn-outline" onClick={handleLearnMoreClick}>
+                LEARN MORE
+              </button> 
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section className="why-choose-us" style={{ padding: '100px 0' }}>
+          <h2 style={{ textAlign: 'center', fontSize: '3.5rem', marginBottom: '80px' }}>Why choose us?</h2>
+          <div className="why-choose-us-grid">
+            {[
+              { title: "Artisan Floristry", text: "Each arrangement is a unique masterpiece crafted by our award-winning designers." },
+              { title: "Punctual Delivery", text: "Real-time tracking and precise delivery windows for every single order." },
+              { title: "Safe & Secure", text: "Industry-leading encryption ensures your personal and payment data is always protected." },
+              { title: "Premium Subscriptions", text: "Tailored flower schedules that save you up to 30% on your recurring orders." }
+            ].map((item, idx) => (
+              <div key={idx} className="service-card">
+                <h3 style={{ marginBottom: '20px' }}>{item.title}</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="img-contact-card">
+          <div className="contact-image">
+            <OptimizedImage src={Contact} alt="Contact Us" aspectRatio="1/1" />
+          </div>
+          <div className="contact-form-container">
+            <span className="about-label">Get in Touch</span>
+            <h2>Book a Consultation</h2>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '48px' }}>
+              Have questions or need a custom arrangement? Leave your contact details below.
             </p>
-            <div className="learn-more">
-              <button onClick={handleLearnMoreClick}>LEARN MORE</button> 
+            <input type="text" placeholder="+380 XX XXX XX XX" />
+            <button className="btn-luxe">REQUEST A CALL</button>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginTop: '60px' }}>
+              <div>
+                <p className="footer-label">Phone</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <FaPhone style={{ color: 'var(--color-gold)' }} />
+                  <span style={{ fontWeight: 600 }}>+380 98 009 9777</span>
+                </div>
+              </div>
+              <div>
+                <p className="footer-label">Location</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <FaMapMarkerAlt style={{ color: 'var(--color-gold)' }} />
+                  <span style={{ fontWeight: 600 }}>15/4 Khreshchatyk, Kyiv</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <OptimizedImage src={human} alt="Floral Studio" aspectRatio="1/1" />
-          </div>
+        </section>
+      </div>
+
+      {/* Subscription Section */}
+      <section style={{ background: 'var(--color-charcoal)', padding: '120px 0', color: 'white', textAlign: 'center', marginTop: '140px' }}>
+        <div className="home-container">
+          <span className="about-label" style={{ color: 'var(--color-gold-light)' }}>Our Services</span>
+          <h2 style={{ fontSize: '4rem', margin: '24px 0 32px' }}>Flower Subscriptions</h2>
+          <p style={{ maxWidth: '700px', margin: '0 auto 48px', opacity: 0.8, fontSize: '1.25rem' }}>
+            Transform your space weekly with our curated floral designs. 
+            Flexible plans that bring nature's beauty to your door.
+          </p>
+          <button className="btn-luxe" style={{ background: 'var(--color-gold)', borderColor: 'var(--color-gold)' }}>
+            SUBSCRIBE NOW
+          </button>
         </div>
       </section>
 
-      <section className="why-choose-us" style={{ padding: '100px 0', borderTop: '1px solid var(--medium-gray)' }}>
-        <h2 style={{ fontSize: '3rem', marginBottom: '60px', textAlign: 'center' }}>Why choose us?</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px' }}>
-          {[
-            { title: "Stylish bouquets by florists", text: "Our professional florists craft elegant arrangements using the highest quality materials." },
-            { title: "On-time delivery", text: "Personally delivered without boxes, ensuring your gift arrives in perfect condition." },
-            { title: "Safe payment", text: "Secure industry-standard measures protect your transaction." },
-            { title: "Subscription tailored to you", text: "Save up to 30% with regular deliveries of fresh flowers." }
-          ].map((item, idx) => (
-            <div key={idx} style={{ padding: '40px', background: 'white', border: '1px solid var(--medium-gray)' }}>
-              <h3 style={{ marginBottom: '16px' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="img-contact-card" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', border: '1px solid var(--charcoal)', marginTop: '60px' }}>
-        <div style={{ borderRight: '1px solid var(--charcoal)' }}>
-          <OptimizedImage src={Contact} alt="Contact" aspectRatio="1/1" />
-        </div>
-        <div style={{ padding: '60px' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>To Contact Us</h2>
-          <p style={{ marginBottom: '40px', color: 'var(--text-secondary)' }}>We will call you back</p>
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '60px' }}>
-            <input type="text" placeholder="+380 XX XXX XX XX" style={{ flex: 1, padding: '12px', border: '1px solid var(--medium-gray)' }} />
-            <button className="add-to-basket" style={{ width: 'auto', padding: '0 40px' }}>BOOK A CALL</button>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
-            <div>
-              <h3 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Phone</h3>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                <FaPhone style={{ color: 'var(--gold)' }} /> <span>+380980099777</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <FaPhone style={{ color: 'var(--gold)' }} /> <span>+380980099111</span>
-              </div>
-            </div>
-            <div>
-              <h3 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Address</h3>
-              <p style={{ fontSize: '0.875rem' }}><FaMapMarkerAlt /> 15/4 Khreshchatyk Street, Kyiv</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Social Proof */}
+      <div className="home-container">
+        <section style={{ padding: '140px 0', textAlign: 'center' }}>
+          <img src={google} alt="Reviews" style={{ height: '60px', marginBottom: '32px' }} />
+          <span className="about-label">Client Stories</span>
+          <h2 style={{ fontSize: '3rem', margin: '24px 0 48px' }}>Our clients say</h2>
+          <blockquote style={{ fontSize: '1.5rem', fontStyle: 'italic', maxWidth: '900px', margin: '0 auto 48px' }}>
+            "The most exquisite floral experience I've ever had. Their attention to detail and choice of blooms is unparalleled in Kyiv."
+          </blockquote>
+          <cite style={{ fontWeight: 700, fontSize: '1.125rem', display: 'block', marginBottom: '48px' }}>— Ronald Richards</cite>
+          <button className="btn-luxe btn-outline">READ MORE REVIEWS</button>
+        </section>
+      </div>
 
       <Review /> 
     </div>

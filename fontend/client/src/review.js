@@ -1,34 +1,34 @@
 import React from "react";
-import "./Review.css";
 import { FaInstagram, FaPinterest, FaFacebookF, FaTwitter, FaPaperPlane } from "react-icons/fa";
+import "./Review.css";
 
 const Review = () => {
   return (
-    <div className="footer-container">
-      
-      <section className="reminder-box">
+    <footer className="footer-container">
+      <section className="footer-section reminder-section">
+        <h3>Stay Connected</h3>
         <p>
-          Remember to offer beautiful flowers from Kyiv LuxeBouquets 
-          Valentines Day, Mothers Day, Christmas... <br />
-          Reminds you 7 days before. No spam or sharing your address.
+          Get notified about special collections and seasonal arrangements 7 days before.
         </p>
-        <input type="email" placeholder="Your Email" />
-        <button className="remind-button">REMIND</button>
+        <div className="reminder-input-group">
+          <input type="email" placeholder="Your Email Address" />
+          <button className="btn-luxe" style={{ width: '100%' }}>REMIND ME</button>
+        </div>
       </section>
 
-      <section className="contact-box">
+      <section className="footer-section">
         <h3>Contact Us</h3>
-        <p className="contact-label">Address</p>
+        
+        <p className="footer-label">Address</p>
         <p>15/4 Khreshchatyk Street, Kyiv</p>
 
-        <p className="contact-label">Phone</p>
-        <p>+380980099777</p>
+        <p className="footer-label">Phone</p>
+        <p>+380 98 009 9777</p>
 
-        <p className="contact-label">General Enquiry:</p>
-        <p>Kiev.Florist.Studio@gmail.com</p>
+        <p className="footer-label">Inquiries</p>
+        <p>studio@luxebouquets.com</p>
 
-        <p className="contact-label">Follow Us</p>
-        <div className="social-icons">
+        <div className="footer-socials">
           <FaInstagram />
           <FaPinterest />
           <FaFacebookF />
@@ -37,43 +37,29 @@ const Review = () => {
         </div>
       </section>
 
-      <section className="bottom-section">
-        <div className="section">
-          <h3>Shop</h3>
-          <ul>
-            <li>All Products</li>
-            <li>Fresh Flowers</li>
-            <li>Dried Flowers</li>
-            <li>Live Plants</li>
-            <li>Designer Vases</li>
-            <li>Aroma Candles</li>
-            <li>Freshener Diffuser</li>
-          </ul>
-        </div>
-
-        <div className="section-1">
-          <h3>Service</h3>
-          <ul>
-            <li>Flower Subscription</li>
-            <li>Wedding & Event Decor</li>
-          </ul>
-        </div>
-
-       
+      <section className="footer-section">
+        <h3>Shop</h3>
+        <ul>
+          <li>All Products</li>
+          <li>Fresh Flowers</li>
+          <li>Dried Flowers</li>
+          <li>Live Plants</li>
+          <li>Designer Vases</li>
+          <li>Aroma Candles</li>
+        </ul>
       </section>
-      <section className="about-us">
-          <h3>About Us</h3>
-          <ul>
-            <li>Our story</li>
-            <li>Blog</li>
-          </ul>
-          <ul>
-            <li>Shipping & returns</li>
-            <li>Terms & conditions</li>
-            <li>Privacy policy</li>
-          </ul>
-        </section>
-    </div>
+
+      <section className="footer-section">
+        <h3>About Us</h3>
+        <ul>
+          <li>Our Story</li>
+          <li>Blog</li>
+          <li>Shipping & Returns</li>
+          <li>Terms & Conditions</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </section>
+    </footer>
   );
 };
 

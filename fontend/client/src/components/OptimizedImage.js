@@ -41,7 +41,8 @@ const OptimizedImage = ({ src, alt, className = '', containerClassName = '', asp
         className={`${className} ${loaded ? 'fade-in' : 'hidden'}`}
         style={{
           opacity: loaded ? 1 : 0,
-          transition: 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+          transform: loaded ? 'scale(1)' : 'scale(1.05)',
+          transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
           width: '100%',
           height: '100%',
           objectFit: 'cover',

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./signin.css";
+import "./App.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ const SignIn = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         alert("Sign in successful!");
-        navigate("/"); // redirect to homepage
+        navigate("/");
       } else {
         alert("Login failed: " + data.message);
       }
@@ -37,39 +37,41 @@ const SignIn = () => {
   };
 
   return (
-    <div className="signin-container">
-      <h2>Greetings!</h2>
-      <h3>Welcome to Luxury Gift Shop</h3>
-      <p>Use your email & password to sign in</p>
+    <div className="auth-container fade-in">
+      <span className="about-label">Welcome Back</span>
+      <h2>Sign In</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>Access your personalized floral experience.</p>
 
       <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="Enter your email"
+          className="auth-input"
+          placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Enter your password"
+          className="auth-input"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
-          {loading ? "Signing in..." : "CONTINUE"}
+        <button type="submit" className="btn-luxe" style={{ width: '100%' }} disabled={loading}>
+          {loading ? "AUTHENTICATING..." : "CONTINUE"}
         </button>
       </form>
 
-      <p style={{ marginTop: "10px" }}>
-        Don't have an account? <Link to="/signup">Register here</Link>
+      <p style={{ marginTop: "32px", fontSize: '0.875rem' }}>
+        New to LuxeBouquets? <Link to="/signup" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>Create an account</Link>
       </p>
 
-      <div className="signin-footer">
-        <Link to="#">Privacy Policy</Link>
-        <span>|</span>
-        <Link to="#">Terms and Conditions</Link>
+      <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--color-medium-gray)', display: 'flex', gap: '16px', justifyContent: 'center', fontSize: '0.75rem', opacity: 0.6 }}>
+        <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>Privacy Policy</Link>
+        <span>•</span>
+        <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>Terms & Conditions</Link>
       </div>
     </div>
   );

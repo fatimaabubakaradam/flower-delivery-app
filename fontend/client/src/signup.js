@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./signin.css"; 
+import { Link, useNavigate } from "react-router-dom";
+import "./App.css"; 
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -21,9 +21,9 @@ const SignUp = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token); // store token if you return one
+        localStorage.setItem("token", data.token);
         alert("Registration successful!");
-        navigate("/"); // or redirect wherever you want
+        navigate("/");
       } else {
         alert("Registration failed: " + data.message);
       }
@@ -34,32 +34,42 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signin-container">
+    <div className="auth-container fade-in">
+      <span className="about-label">Join Our Studio</span>
       <h2>Create Account</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>Join the LuxeBouquets family for exclusive perks.</p>
+
       <form onSubmit={handleRegister}>
         <input
           type="text"
-          placeholder="Enter your name"
+          className="auth-input"
+          placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
         <input
           type="email"
-          placeholder="Enter your email"
+          className="auth-input"
+          placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Enter your password"
+          className="auth-input"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">REGISTER</button>
+        <button type="submit" className="btn-luxe" style={{ width: '100%' }}>REGISTER</button>
       </form>
+
+      <p style={{ marginTop: "32px", fontSize: '0.875rem' }}>
+        Already have an account? <Link to="/signin" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>Sign in here</Link>
+      </p>
     </div>
   );
 };
