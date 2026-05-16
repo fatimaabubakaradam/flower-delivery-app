@@ -21,7 +21,7 @@ const OptimizedImage = ({ src, alt, className = '', containerClassName = '', asp
     };
   }, [src]);
 
-  const placeholder = 'https://via.placeholder.com/600x800?text=Luxe+Bouquet';
+  const placeholder = 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=800&auto=format&fit=crop';
 
   return (
     <div 

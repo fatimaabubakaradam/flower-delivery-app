@@ -1,20 +1,32 @@
-import React from "react";
-import "./Checkout.css";
-import { FaLock } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaLock, FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import "./App.css";
 
-const Checkout = ({ cartItems, total }) => {
+const Checkout = ({ cartItems: propsCartItems, total: propsTotal, onBack }) => {
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState(propsCartItems || []);
+  const [total, setTotal] = useState(propsTotal || 0);
+
+  useEffect(() => {
+    if (!propsCartItems) {
+      const savedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      setCartItems(savedCart);
+      const calculatedTotal = savedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      setTotal(calculatedTotal);
+    }
+  }, [propsCartItems]);
+
   const handlePayment = async () => {
-    console.log("Proceed to Payment clicked");
     if (!cartItems || cartItems.length === 0) {
       alert("Your cart is empty.");
       return;
     }
 
     try {
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
       const response = await fetch(
-        "https://flower-delivery-app-backend.onrender.com/api/payments/create-checkout-session"
-
-,
+        `${apiUrl}/api/payments/create-checkout-session`,
         {
           method: "POST",
           headers: {
@@ -32,8 +44,6 @@ const Checkout = ({ cartItems, total }) => {
       }
 
       const data = await response.json();
-      console.log("Server response:", data);
-
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -46,39 +56,72 @@ const Checkout = ({ cartItems, total }) => {
   };
 
   return (
-    <div className="checkout-container">
-      {cartItems.map((item, index) => (
-        <div className="item" key={index}>
-          <img src={item.imageUrl} alt={item.name} className="product-image" />
-          <div className="details">
-            <h3>{item.name}</h3>
-            <p>Quantity ({item.quantity})</p>
-          </div>
-          <div className="price">
-            ${(item.price * item.quantity).toFixed(2)}
-          </div>
-        </div>
-      ))}
+    <div className="container" style={{ paddingTop: '160px', paddingBottom: '100px', maxWidth: '800px' }}>
+      <div className="checkout-view" style={{ animation: 'fadeUp 0.5s ease' }}>
+        <button 
+          onClick={onBack || (() => navigate(-1))}
+          style={{ 
+            background: 'none', border: 'none', color: 'var(--color-text-muted)', 
+            cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
+            marginBottom: '30px', fontSize: '0.8rem', textTransform: 'uppercase',
+            letterSpacing: '0.1em'
+          }}
+        >
+          <FaArrowLeft /> Back to Studio
+        </button>
 
-      <div className="summary">
-        <div className="row">
-          <span>Subtotal</span>
-          <span>${(total ?? 0).toFixed(2)}</span>
+        <h1 className="title-display" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Secure Checkout</h1>
+
+        <div className="order-summary-list" style={{ marginBottom: '40px' }}>
+          {cartItems.map((item, index) => (
+            <div key={index} style={{ 
+              display: 'flex', justifyContent: 'space-between', marginBottom: '15px',
+              fontSize: '0.9rem', color: 'var(--color-text-main)'
+            }}>
+              <span>{item.name} x {item.quantity}</span>
+              <span style={{ fontWeight: 600 }}>${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+          ))}
+          {cartItems.length === 0 && <p>Your basket is empty.</p>}
         </div>
-        <div className="row">
-          <span>Shipping</span>
-          <span className="shipping">Calculated at next step</span>
+
+        <div style={{ 
+          background: 'var(--color-bg-secondary)', padding: '30px', 
+          borderRadius: '4px', marginBottom: '30px', border: 'var(--border-delicate)'
+        }}>
+          <div className="row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+            <span style={{ color: 'var(--color-text-muted)' }}>Subtotal</span>
+            <span style={{ fontWeight: 600 }}>${total.toFixed(2)}</span>
+          </div>
+          <div className="row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <span style={{ color: 'var(--color-text-muted)' }}>Shipping</span>
+            <span style={{ color: 'var(--color-accent-gold-dark)', fontSize: '0.8rem' }}>Free Boutique Delivery</span>
+          </div>
+          <div className="total-row" style={{ 
+            display: 'flex', justifyContent: 'space-between', 
+            borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '20px',
+            fontSize: '1.25rem', fontFamily: 'var(--font-serif)', fontWeight: 600
+          }}>
+            <span>Grand Total</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
         </div>
-        <div className="row total">
-          <span>Total</span>
-          <span>${(total ?? 0).toFixed(2)}</span>
+
+        <div style={{ 
+          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+          gap: '10px', color: 'var(--color-text-light)', fontSize: '0.75rem',
+          marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '0.1em'
+        }}>
+          <FaLock /> Encrypted Secure Checkout
         </div>
-        <div className="secure-checkout">
-          <span>Secure Checkout</span>
-          <FaLock className="icon" />
-        </div>
-        <button className="checkout-btn" onClick={handlePayment}>
-          Proceed to Payment
+
+        <button 
+          className="btn-luxury" 
+          style={{ width: '100%' }} 
+          onClick={handlePayment}
+          disabled={cartItems.length === 0}
+        >
+          <span>Complete Purchase</span>
         </button>
       </div>
     </div>
@@ -86,5 +129,3 @@ const Checkout = ({ cartItems, total }) => {
 };
 
 export default Checkout;
-
-// 4242 4242 4242 4242

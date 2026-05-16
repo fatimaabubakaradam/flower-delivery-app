@@ -35,71 +35,64 @@ const Category = () => {
   }, []);
 
   return (
-    <div className="fade-in">
+    <div style={{ backgroundColor: 'var(--color-bg-primary)' }}>
       {/* Category Hero */}
-      <section style={{ height: '60vh', position: 'relative', overflow: 'hidden' }}>
-        <img 
-          src={Fresh} 
-          alt="Fresh Collection" 
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-        />
-        <div style={{ 
-          position: 'absolute', 
-          inset: 0, 
-          background: 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5))', 
-          display: 'flex', 
-          flexDirection: 'column',
-          alignItems: 'center', 
-          justifyContent: 'center' 
-        }}>
-          <span className="about-label" style={{ color: 'white', marginBottom: '16px' }}>Collection</span>
-          <h1 style={{ color: 'white', fontSize: '5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Fresh Flowers</h1>
-        </div>
+      <section className="shop-header" style={{
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.9)), url(${Fresh})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <span className="subtitle">Collection</span>
+        <h1 className="title-display">Fresh Blooms</h1>
+        <p style={{ color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto' }}>
+          Discover our signature collection of freshly cut flowers, elegantly arranged to brighten any space and elevate every occasion.
+        </p>
       </section>
 
-      <div className="home-container">
-        <section style={{ padding: '100px 0' }} className="flowers-list">
-          {loading ? (
-            Array(8).fill(0).map((_, i) => (
-              <div key={i} className="flower-card" style={{ border: 'none' }}>
-                <Skeleton aspectRatio="3/4" />
-                <div style={{ marginTop: '24px' }}>
-                  <Skeleton width="70%" height="28px" />
-                  <Skeleton width="30%" height="20px" style={{ marginTop: '12px' }} />
-                </div>
+      <section className="product-grid">
+        {loading ? (
+          Array(8).fill(0).map((_, i) => (
+            <div key={i} style={{ border: 'none' }}>
+              <Skeleton aspectRatio="4/5" />
+              <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <Skeleton width="60%" height="24px" style={{ margin: '0 auto 10px' }} />
+                <Skeleton width="30%" height="20px" style={{ margin: '0 auto' }} />
               </div>
-            ))
-          ) : flowers.length > 0 ? (
-            flowers.map((flower) => (
-              <Link
-                to={`/product/${flower._id}`}
-                key={flower._id}
-                className="flower-card"
-                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-              >
-                <div style={{ overflow: 'hidden', marginBottom: '24px' }}>
-                  <OptimizedImage
-                    src={`${process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com'}${flower.image}`}
-                    alt={flower.name}
-                    aspectRatio="3/4"
-                    containerClassName="category-item-img"
-                  />
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{flower.name}</h3>
-                  <p style={{ fontWeight: 600, color: 'var(--color-gold-dark)', fontSize: '1.125rem' }}>${flower.price}</p>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '120px 0' }}>
-              <p style={{ fontSize: '1.5rem', opacity: 0.6 }}>No masterpieces found in this collection.</p>
             </div>
-          )}
-        </section>
-      </div>
+          ))
+        ) : flowers.length > 0 ? (
+          flowers.map((flower) => (
+            <Link
+              to={`/product/${flower._id}`}
+              key={flower._id}
+              className="prod-card"
+            >
+              <div className="prod-img-wrap">
+                <OptimizedImage
+                  src={`${process.env.REACT_APP_API_URL || 'https://flower-delivery-app-backend.onrender.com'}${flower.image}`}
+                  alt={flower.name}
+                  aspectRatio="4/5"
+                  className="prod-img"
+                />
+                <span className="prod-badge">Fresh</span>
+                <div className="prod-action">Quick View</div>
+              </div>
+              <div className="prod-info">
+                <h3 className="prod-title">{flower.name}</h3>
+                <p className="prod-price">${flower.price}</p>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '80px 0' }}>
+            <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>No masterpieces found in this collection.</p>
+          </div>
+        )}
+      </section>
 
-      <Review />
+      <div style={{ padding: '80px 0', background: 'var(--color-bg-secondary)' }}>
+        <Review />
+      </div>
     </div>
   );
 };

@@ -1,10 +1,12 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -14,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         setUser(decoded);
       } catch (error) {
         console.error("Invalid token:", error.message);
-        localStorage.removeItem("token"); // Remove invalid token
+        localStorage.removeItem("token");
         setUser(null);
       }
     }
@@ -25,6 +27,13 @@ export const AuthProvider = ({ children }) => {
       const decoded = jwtDecode(token);
       localStorage.setItem("token", token);
       setUser(decoded);
+      setIsLoginModalOpen(false);
+      
+      // If there's a pending action, execute it
+      if (pendingAction) {
+        pendingAction();
+        setPendingAction(null);
+      }
     } catch (error) {
       console.error("Login failed: Invalid token", error.message);
     }
@@ -35,8 +44,25 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const openLoginModal = (callback) => {
+    if (callback) setPendingAction(() => callback);
+    setIsLoginModalOpen(true);
+  };
+  
+  const closeLoginModal = () => {
+    setIsLoginModalOpen(false);
+    setPendingAction(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      login, 
+      logout, 
+      isLoginModalOpen, 
+      openLoginModal, 
+      closeLoginModal 
+    }}>
       {children}
     </AuthContext.Provider>
   );
