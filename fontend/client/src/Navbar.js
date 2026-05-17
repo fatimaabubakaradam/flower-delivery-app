@@ -8,8 +8,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const location = useLocation();
+
+  const updateCartCount = () => {
+    const savedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const count = savedCart.reduce((total, item) => total + (item.quantity || 1), 0);
+    setCartCount(count);
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -20,6 +27,16 @@ const Navbar = () => {
   useEffect(() => {
     setMobileOpen(false); // close mobile menu on route change
   }, [location]);
+
+  useEffect(() => {
+    updateCartCount();
+    window.addEventListener("cart-updated", updateCartCount);
+    window.addEventListener("storage", updateCartCount);
+    return () => {
+      window.removeEventListener("cart-updated", updateCartCount);
+      window.removeEventListener("storage", updateCartCount);
+    };
+  }, []);
 
   const handleSignOut = () => {
     logout();
@@ -59,7 +76,7 @@ const Navbar = () => {
         <div className="nav-actions">
           <button className="action-icon" onClick={() => setCartOpen(true)}>
             <FaShoppingBag />
-            <span className="cart-badge">0</span>
+            <span className="cart-badge">{cartCount}</span>
           </button>
         </div>
       </nav>

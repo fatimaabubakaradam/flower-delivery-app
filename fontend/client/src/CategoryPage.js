@@ -53,10 +53,14 @@ const CategoryPage = () => {
     setLoading(true);
     const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
     
-    // Format category for backend (e.g. 'fresh-flowers' -> 'Fresh Flowers')
-    const backendCategory = categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    let url = `${apiUrl}/api/flowers`;
+    if (categoryName) {
+      // Format category for backend (e.g. 'fresh-flowers' -> 'Fresh Flowers')
+      const backendCategory = categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      url = `${apiUrl}/api/flowers?category=${encodeURIComponent(backendCategory)}`;
+    }
 
-    fetch(`${apiUrl}/api/flowers?category=${encodeURIComponent(backendCategory)}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setFlowers(data);

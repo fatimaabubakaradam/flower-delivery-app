@@ -28,13 +28,13 @@ const Product = () => {
     }
   }, [id]);
 
-  // Unified function to handle adding to cart and redirecting
   const performAddToCart = useCallback((flowerData, qty) => {
     if (!flowerData) return;
     
     const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
     const newCart = [...existingCart, { ...flowerData, quantity: qty }];
     localStorage.setItem("cartItems", JSON.stringify(newCart));
+    window.dispatchEvent(new Event("cart-updated"));
     
     // Immediate redirection to checkout as requested for optimized conversion
     navigate("/checkout");

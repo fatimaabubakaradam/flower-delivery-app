@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaLock, FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "./AuthContext";
 import "./App.css";
 
 const Checkout = ({ cartItems: propsCartItems, total: propsTotal, onBack }) => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState(propsCartItems || []);
   const [total, setTotal] = useState(propsTotal || 0);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/signin");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (!propsCartItems) {
@@ -24,6 +33,7 @@ const Checkout = ({ cartItems: propsCartItems, total: propsTotal, onBack }) => {
     }
 
     try {
+      const token = localStorage.getItem("token");
       const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
       const response = await fetch(
         `${apiUrl}/api/payments/create-checkout-session`,
@@ -31,6 +41,7 @@ const Checkout = ({ cartItems: propsCartItems, total: propsTotal, onBack }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({ cartItems }),
         }

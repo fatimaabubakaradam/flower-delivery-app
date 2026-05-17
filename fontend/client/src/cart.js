@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaTimes, FaShoppingBag, FaTrashAlt } from "react-icons/fa";
 import Checkout from "./Checkout";
+import AuthContext from "./AuthContext";
 import "./App.css";
 
 const Cart = ({ onClose }) => {
   const [cartItems, setCartItems] = useState([]);
   const [checkout, setCheckout] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, openLoginModal } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-
     const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCartItems);
   }, []);
@@ -20,11 +18,12 @@ const Cart = ({ onClose }) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cart-updated"));
   };
 
   const handleCheckout = () => {
-    if (!isAuthenticated) {
-      alert("Please sign in to proceed to checkout.");
+    if (!user) {
+      openLoginModal(() => setCheckout(true));
       return;
     }
     setCheckout(true);
@@ -108,9 +107,8 @@ const Cart = ({ onClose }) => {
                 className="btn-luxury"
                 style={{ width: '100%' }}
                 onClick={handleCheckout}
-                disabled={!isAuthenticated}
               >
-                <span>{isAuthenticated ? 'Proceed to Checkout' : 'Sign in to Checkout'}</span>
+                <span>{user ? 'Proceed to Checkout' : 'Sign in to Checkout'}</span>
               </button>
             </>
           )}
