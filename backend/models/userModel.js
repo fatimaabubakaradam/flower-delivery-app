@@ -46,7 +46,11 @@ userSchema.statics.login = async function (email, password) {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) throw new Error("Invalid email or password");
   // Generate JWT Token
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(
+    { userId: user._id, name: user.name, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
   return { user, token };
 };
 const User = mongoose.model("User", userSchema);

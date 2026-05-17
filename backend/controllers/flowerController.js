@@ -28,8 +28,31 @@ const addFlower = async (req, res) => {
 
 const getAllFlowers = async (req, res) => {
   try {
-    console.log("Fetching all flowers...");
-    const flowers = await Flower.find();
+    const { category } = req.query;
+    console.log(`Fetching flowers${category ? ` for category: ${category}` : ""}`);
+    
+    let query = {};
+    if (category) {
+      const normalizedCat = category.trim().toLowerCase();
+      
+      const categoryMap = {
+        "fresh flowers": ["fresh flower", "fresh", "rose", "garden", "Rose", "Garden"],
+        "dried flowers": ["dried flower", "dried-flowers"],
+        "live plants": ["live plant", "live-plants"],
+        "aroma candles": ["Aroma candles", "aroma candles", "candle", "candles"]
+      };
+
+      const mappedCats = categoryMap[normalizedCat];
+      if (mappedCats) {
+        // Use case-insensitive regex array for $in match
+        query.category = { $in: mappedCats.map(c => new RegExp(`^${c}$`, 'i')) };
+      } else {
+        // Fallback case-insensitive regex match for category
+        query.category = { $regex: new RegExp(`^${category}$`, 'i') };
+      }
+    }
+    
+    const flowers = await Flower.find(query);
     res.status(200).json(flowers);
   } catch (error) {
     console.error("Error fetching flowers:", error);

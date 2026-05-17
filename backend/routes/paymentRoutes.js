@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const authMiddleware = require("../middleware/authMiddleware");
 
 // POST /api/payments/create-checkout-session
-router.post("/create-checkout-session", async (req, res) => {
+router.post("/create-checkout-session", authMiddleware, async (req, res) => {
   const { cartItems } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {

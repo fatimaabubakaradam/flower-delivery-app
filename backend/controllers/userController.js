@@ -4,7 +4,12 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await User.signup(name, email, password);
-    res.status(201).json({ message: "User registered successfully", user });
+    const token = require("jsonwebtoken").sign(
+      { userId: user._id, name: user.name, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.status(201).json({ message: "User registered successfully", user, token });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

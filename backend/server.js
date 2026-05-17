@@ -33,6 +33,7 @@ mongoose
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
+      'http://localhost:3000',  // Local development URL (standard CRA)
       'http://localhost:3001',  // Local development URL
       'https://flower-delivery-app-fontend-client.onrender.com',  // Production URL
     ];
