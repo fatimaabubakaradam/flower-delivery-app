@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* const [images, setImages] = useState({
+  heroImage: "",
+  freshFlowers: "",
+  driedFlowers: "",
+  livePlants: "",
+  aromaCandles: "",
+  fresheners: "",
+});
+
+const navigate = useNavigate(); 
+const API_URL = process.env.REACT_APP_API_URL;
+
+useEffect(() => {
+  const fetchImage = async (id, key) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`);
+      const data = await response.json();
+      setImages((prevImages) => ({
+        ...prevImages,
+        [key]: `${API_URL}${data.image}`,
+      }));
+    } catch (error) {
+      console.error(`Error fetching ${key} image:`, error);
+    }
+  };
+
+  fetchImage("67e32f83e29686944d247fe7", "heroImage"); 
+  fetchImage("67e3341ee29686944d248000", "freshFlowers"); 
+  fetchImage("67e3344fe29686944d248002", "driedFlowers"); 
+  fetchImage("67e33d79e29686944d248038", "livePlants"); 
+  fetchImage("67e33db7e29686944d24803a", "aromaCandles"); 
+  fetchImage("67e33e00e29686944d24803c", "fresheners"); 
+}, [API_URL]); */
