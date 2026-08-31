@@ -1,0 +1,282 @@
+.our-story {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 40px 20px;
+}
+
+.our-story-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.about-title {
+    font-size: 24px;
+    font-style: italic;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.brand-name {
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.description {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icon {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 5px;
+    border: 2px solid #000;
+    transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #f0f0f0;
+}
+
+.about-image-container {
+    margin: 0 auto;
+
+}
+
+.about-image {
+    width: 100%;
+}
+.founders-passion {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+  }
+  
+  .passion-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .passion-description {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .about-image-container-1 {
+    margin: 0 auto;
+
+}
+
+.about-image-1 {
+    width: 100%;
+}
+.bouquet-container {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+
+  }
+  
+  .bouquet-content {
+    padding: 20px;
+    /* max-width: 500px; Adjust width */
+  }
+  
+  .bouquet-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .bouquet-content p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .parlour-image-container {
+    margin: 0 auto;
+
+}
+
+.parlour-image {
+    width: 100%;
+} 
+.bouquet-info-container {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .bouquet-info-container-1{
+    border-top: 1px solid black;
+
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto; 
+  }
+  .bouquet-info-content {
+    padding: 20px;
+    /* max-width: 500px; */
+  }
+  
+  .bouquet-info-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .bouquet-info-content p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .pink-image-container {
+    margin: 0 auto;
+
+}
+
+.pink-image {
+    width: 100%;
+} 
+.shop-abt-btn{
+    margin-top: 30px;
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+}
+@media (min-width: 768px){
+     .bouquet-content p, .bouquet-info-content p{
+width: 100%;     }
+} 
+@media (min-width: 1024px){
+    /* .bouquet-content p, .bouquet-info-content p{
+width: 100%;     } */
+.con-gr-about{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+} 
+.founders-passion{
+  border: 1px solid black;
+
+}
+.founders-passion{
+    border: 1px solid black;
+    width: 100%;
+    max-width: 100%;
+    /* margin: 0 auto; */
+ 
+}
+.passion-description{
+    text-align: center;
+}
+/* .carfted-con-gr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+background-color: red;  
+}
+
+
+.about-image-1,
+  width: 100%;
+  height: auto;
+}
+
+
+
+.bouquet-info-container:nth-of-type(1) {
+  order: -1;
+} */
+
+.carfted-con-gr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* gap: 20px; */
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 20px; */
+}
+
+/* Ensure sections expand fully */
+.about-image-container-1,
+.parlour-image-container,
+.pink-image-container,
+.bouquet-container,
+.bouquet-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid black;
+
+}
+
+/* Image Styling */
+img, .about-image, .about-image-container {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}
+.about-image, .about-image-container {
+  margin-top: -20px;
+}
+/* Reverse layout for second row (text left, image right) */
+.bouquet-info-container:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.parlour-image-container {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+
+} 

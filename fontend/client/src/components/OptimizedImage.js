@@ -1,0 +1,62 @@
+import React, { useState, useEffect } from 'react';
+import Skeleton from './Skeleton';
+
+/**
+ * OptimizedImage Component
+ * Handles lazy loading, skeletons, and smooth fade-in animations.
+ */
+const OptimizedImage = ({ src, alt, className = '', containerClassName = '', aspectRatio = '4/5', ...props }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!src) return;
+    
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setLoaded(true);
+    img.onerror = () => {
+      setLoaded(true);
+      setError(true);
+    };
+  }, [src]);
+
+  const placeholder = 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=800&auto=format&fit=crop';
+
+  return (
+    <div 
+      className={`image-container ${containerClassName}`} 
+      style={{ 
+        position: 'relative', 
+        width: '100%', 
+        aspectRatio: aspectRatio,
+        overflow: 'hidden',
+        backgroundColor: '#f9f9f9'
+      }}
+    >
+      {!loaded && <Skeleton height="100%" />}
+      <img
+        src={error ? placeholder : src}
+        alt={alt}
+        className={`${className} ${loaded ? 'fade-in' : 'hidden'}`}
+        style={{
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? 'scale(1)' : 'scale(1.05)',
+          transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          display: loaded ? 'block' : 'none'
+        }}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        {...props}
+      />
+    </div>
+  );
+};
+
+export default OptimizedImage;
