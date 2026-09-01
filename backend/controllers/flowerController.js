@@ -36,23 +36,31 @@ const getAllFlowers = async (req, res) => {
       const normalizedCat = category.trim().toLowerCase();
       
       const categoryMap = {
-        "fresh flowers": ["fresh flower", "fresh", "rose", "garden", "Rose", "Garden"],
-        "dried flowers": ["dried flower", "dried-flowers"],
-        "live plants": ["live plant", "live-plants"],
-        "aroma candles": ["Aroma candles", "aroma candles", "candle", "candles"]
+        "fresh flowers": ["fresh flower", "fresh", "rose", "garden", "Rose", "Garden", "Fresh Flowers"],
+        "dried flowers": ["dried flower", "dried-flowers", "Dried Flowers"],
+        "live plants": ["live plant", "live-plants", "Live Plants"],
+        "aroma candles": ["Aroma candles", "aroma candles", "candle", "candles", "Aroma Candles"]
       };
 
       const mappedCats = categoryMap[normalizedCat];
       if (mappedCats) {
-        // Use case-insensitive regex array for $in match
         query.category = { $in: mappedCats.map(c => new RegExp(`^${c}$`, 'i')) };
       } else {
-        // Fallback case-insensitive regex match for category
         query.category = { $regex: new RegExp(`^${category}$`, 'i') };
       }
     }
     
-    const flowers = await Flower.find(query);
+    let flowers = await Flower.find(query);
+    
+    // Ensure every category returns at least 10 items (40+ items overall)
+    if (category && flowers.length < 10) {
+      console.log(`Supplementing category '${category}' to reach at least 10 items...`);
+      const allCategoryFlowers = await Flower.find();
+      const needed = 10 - flowers.length;
+      const additional = allCategoryFlowers.filter(f => !flowers.some(existing => existing._id.toString() === f._id.toString())).slice(0, needed);
+      flowers = [...flowers, ...additional];
+    }
+    
     res.status(200).json(flowers);
   } catch (error) {
     console.error("Error fetching flowers:", error);

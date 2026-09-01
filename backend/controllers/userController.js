@@ -10,12 +10,15 @@ const stripUserPassword = (user) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
+    if (confirmPassword !== undefined && password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
     const user = await User.signup(name, email, password);
     const token = jwt.sign(
       { userId: user._id, name: user.name, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      process.env.JWT_SECRET || "default_jwt_secret",
+      { expiresIn: "7d" }
     );
 
     res.status(201).json({

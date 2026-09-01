@@ -33,12 +33,15 @@ mongoose
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
-      'http://localhost:3000',  // Local development URL (standard CRA)
-      'http://localhost:3001',  // Local development URL
-      'https://flower-delivery-app-fontend-client.onrender.com',  // Production URL
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001',
+      'https://flower-delivery-app-fontend-client.onrender.com',
     ];
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);  // Allow the request
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      callback(null, true);
     } else {
       console.log(`Blocked by CORS: ${origin}`);
       callback(new Error('CORS policy does not allow this origin'), false);  // Reject the request
