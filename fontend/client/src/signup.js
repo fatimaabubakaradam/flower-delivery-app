@@ -1,146 +1,196 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUser, FaEnvelope, FaLock, FaCheckCircle } from "react-icons/fa";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaUser, FaEnvelope, FaLock, FaCheckCircle, FaArrowRight } from "react-icons/fa";
 import AuthContext from "./AuthContext";
-import "./App.css"; 
+import "./App.css";
 
 const SignUp = () => {
   const { login } = useContext(AuthContext);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState(""); 
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const redirect = searchParams.get("redirect") || "/";
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match. Please verify your confirmation password.");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
-      const response = await fetch(`${apiUrl}/api/users/register`, {
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+      const response = await fetch(`${API_URL}/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, confirmPassword }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setSuccess(true);
-        // Show success for 2 seconds then login and navigate
         setTimeout(() => {
           login(data.token);
-          navigate("/");
-        }, 2000);
+          navigate(redirect);
+        }, 1500);
       } else {
-        setError(data.message || "Registration failed. Please try again.");
+        setError(data.message || "Registration failed. Please check your information.");
       }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setError("Connection error. Please ensure the backend is running.");
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Connection error. Please ensure backend is running.");
     } finally {
       setLoading(false);
     }
   };
 
-  if (success) {
-    return (
-      <div className="auth-page">
-        <div className="auth-card" style={{ textAlign: 'center', padding: '80px 40px' }}>
-          <FaCheckCircle style={{ fontSize: '4rem', color: '#4caf50', marginBottom: '20px' }} />
-          <h2 className="title-display">Welcome, {name}!</h2>
-          <p style={{ color: 'var(--color-text-muted)', marginTop: '10px' }}>
-            Your account has been successfully created. Redirecting to our studio...
-          </p>
+  return (
+    <div className="auth-split-wrapper">
+      {/* Left Editorial Panel */}
+      <div className="auth-split-editorial">
+        <div className="auth-editorial-content">
+          <span className="hero-badge" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)', marginBottom: '15px' }}>
+            Join Our Studio
+          </span>
+          <h2 className="auth-editorial-quote">
+            “Flowers are the music of the ground.”
+          </h2>
+          <p className="auth-editorial-author">Boutique floral member experience</p>
         </div>
       </div>
-    );
-  }
 
-  return (
-    <div className="auth-page">
-      <div className="auth-card" style={{ animation: 'fadeUp 0.8s ease' }}>
-        <span className="hero-badge" style={{ marginBottom: '15px' }}>Join Our Studio</span>
-        <h2 className="title-display" style={{ marginBottom: '10px' }}>Create Account</h2>
-        <p className="auth-subtitle">Join the LuxeBouquets family for an elevated floral experience.</p>
-
-        {error && (
-          <div style={{ 
-            background: 'rgba(255,0,0,0.05)', color: '#d32f2f', 
-            padding: '12px', borderRadius: '4px', fontSize: '0.85rem', 
-            marginBottom: '20px', textAlign: 'center', border: '1px solid rgba(255,0,0,0.1)'
-          }}>
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleRegister} style={{ textAlign: 'left' }}>
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px', color: 'var(--color-text-muted)' }}>Full Name</label>
-            <div style={{ position: 'relative' }}>
-              <FaUser style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-accent-gold)', fontSize: '0.9rem' }} />
-              <input
-                type="text"
-                className="luxury-input"
-                placeholder="Jane Doe"
-                style={{ paddingLeft: '25px', color: 'var(--color-dark)', borderBottomColor: 'rgba(0,0,0,0.1)' }}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+      {/* Right Form Panel */}
+      <div className="auth-split-form">
+        <div className="auth-form-card fade-up">
+          {success ? (
+            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+              <FaCheckCircle style={{ fontSize: '3.5rem', color: '#4caf50', marginBottom: '20px' }} />
+              <h2 className="title-display" style={{ fontSize: '1.8rem' }}>Welcome, {name}!</h2>
+              <p style={{ color: 'var(--color-text-muted)', marginTop: '10px' }}>
+                Your boutique account has been created. Redirecting to checkout...
+              </p>
             </div>
-          </div>
+          ) : (
+            <>
+              <div style={{ marginBottom: '25px' }}>
+                <span className="hero-badge" style={{ marginBottom: '10px' }}>New Customer</span>
+                <h2 className="title-display" style={{ fontSize: '2rem', marginTop: '6px' }}>Create Account</h2>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
+                  Create an account to complete your floral order seamlessly.
+                </p>
+              </div>
 
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px', color: 'var(--color-text-muted)' }}>Email Address</label>
-            <div style={{ position: 'relative' }}>
-              <FaEnvelope style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-accent-gold)', fontSize: '0.9rem' }} />
-              <input
-                type="email"
-                className="luxury-input"
-                placeholder="jane@example.com"
-                style={{ paddingLeft: '25px', color: 'var(--color-dark)', borderBottomColor: 'rgba(0,0,0,0.1)' }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+              {error && (
+                <div style={{ 
+                  background: 'rgba(211, 47, 47, 0.08)', color: '#d32f2f', 
+                  padding: '12px', borderRadius: '4px', fontSize: '0.85rem', 
+                  marginBottom: '25px', textAlign: 'center', border: '1px solid rgba(211, 47, 47, 0.2)'
+                }}>
+                  {error}
+                </div>
+              )}
 
-          <div style={{ marginBottom: '30px' }}>
-            <label style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px', color: 'var(--color-text-muted)' }}>Password</label>
-            <div style={{ position: 'relative' }}>
-              <FaLock style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-accent-gold)', fontSize: '0.9rem' }} />
-              <input
-                type="password"
-                className="luxury-input"
-                placeholder="Minimum 8 characters"
-                style={{ paddingLeft: '25px', color: 'var(--color-dark)', borderBottomColor: 'rgba(0,0,0,0.1)' }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+              <form onSubmit={handleRegister}>
+                <div className="form-group-luxe" style={{ marginBottom: '18px' }}>
+                  <label>Full Name</label>
+                  <div className="input-with-icon">
+                    <FaUser className="input-icon" />
+                    <input
+                      type="text"
+                      placeholder="Jane Doe"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
 
-          <button type="submit" className="btn-luxury" style={{ width: '100%' }} disabled={loading}>
-            <span>{loading ? "Creating Profile..." : "Join the Studio"}</span>
-          </button>
-        </form>
+                <div className="form-group-luxe" style={{ marginBottom: '18px' }}>
+                  <label>Email Address</label>
+                  <div className="input-with-icon">
+                    <FaEnvelope className="input-icon" />
+                    <input
+                      type="email"
+                      placeholder="jane@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
 
-        <p style={{ marginTop: "40px", fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-          Already a member? <Link to="/signin" className="auth-link">Sign In here</Link>
-        </p>
+                <div className="form-group-luxe" style={{ marginBottom: '18px' }}>
+                  <label>Password</label>
+                  <div className="input-with-icon">
+                    <FaLock className="input-icon" />
+                    <input
+                      type="password"
+                      placeholder="At least 6 characters"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group-luxe" style={{ marginBottom: '30px' }}>
+                  <label>Confirm Password</label>
+                  <div className="input-with-icon">
+                    <FaLock className="input-icon" />
+                    <input
+                      type="password"
+                      placeholder="Re-enter password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="btn-luxury" 
+                  style={{ width: '100%', padding: '16px' }}
+                  disabled={loading}
+                >
+                  <span>{loading ? "Creating Profile..." : "Create Account & Continue"}</span>
+                </button>
+              </form>
+
+              <div style={{ marginTop: '30px', textAlign: 'center', paddingTop: '20px', borderTop: 'var(--border-delicate)' }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)' }}>
+                  Already have an account?{" "}
+                  <Link 
+                    to={`/signin${redirect !== '/' ? `?redirect=${encodeURIComponent(redirect)}` : ''}`} 
+                    style={{ color: 'var(--color-accent-gold-dark)', fontWeight: 600, textDecoration: 'none' }}
+                  >
+                    Sign In here <FaArrowRight style={{ fontSize: '0.75rem', marginLeft: '4px' }} />
+                  </Link>
+                </p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-      
-      <style>{`
-        .auth-page .luxury-input::placeholder { color: #ccc; }
-        .auth-page .luxury-input:focus { border-bottom-color: var(--color-accent-gold) !important; }
-      `}</style>
     </div>
   );
 };
